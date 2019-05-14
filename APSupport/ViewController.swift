@@ -10,6 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBAction func buttonLogin(_ sender: Any) {
+        print("asd")
+        let session = URLSession.shared
+        let url = URL(string: "https://example.com/post")!
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+    }
     let authorName = "Fhan Jacson";
     
     override func viewDidLoad() {
