@@ -7,16 +7,11 @@
 //
 
 import UIKit
-
+import Alamofire
 class ViewController: UIViewController {
     
     @IBAction func buttonLogin(_ sender: Any) {
-        print("asd")
-        let session = URLSession.shared
-        let url = URL(string: "https://example.com/post")!
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        searchForUserAlamo(username:"fhanjacson");
     }
     let authorName = "Fhan Jacson";
     
@@ -29,7 +24,29 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    func searchForUserAlamo(username: String) {
+        Alamofire.request("https://httpbin.org/post", method: .post)
+        Alamofire.request(URL(string: "https://ptsv2.com/t/h9d51-1557906769/post")!, method: .post)
+            .validate()
+            .response { (response) in
+                
+                print("Request: \(response.request)")
+                print("Response: \(response.response)")
+                print("Error: \(response.error)")
+                
+                if let data = response.data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        print(json)
+                        
+                    } catch {
+                        print("Error: ", error)
+                    }
+                    
+                }
+        }
+    }
 
 }
 
