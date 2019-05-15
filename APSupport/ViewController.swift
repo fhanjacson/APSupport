@@ -11,7 +11,7 @@ import Alamofire
 class ViewController: UIViewController {
     
     @IBAction func buttonLogin(_ sender: Any) {
-        searchForUserAlamo(username:"fhanjacson");
+        APKeyLogin(username: "TP045027", password: "POIPOI")
     }
     let authorName = "Fhan Jacson";
     
@@ -19,34 +19,108 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func searchForUserAlamo(username: String) {
-        Alamofire.request("https://httpbin.org/post", method: .post)
-        Alamofire.request(URL(string: "https://ptsv2.com/t/h9d51-1557906769/post")!, method: .post)
+    func APKeyLogin(username: String, password: String) {
+        var ticket1: String = ""
+        var ticket2: String = ""
+        var isAuthenticated: Bool = false;
+        
+        let parameters = [
+            "username" : username,
+            "password" : password
+        ]
+        
+        let headers: HTTPHeaders = [
+            "Accept":"application/json, text/plain, */*",
+            "Content-type":"application/x-www-form-urlencoded",
+            "Origin":"https://apspace.apu.edu.my",
+            "Referer":"https://apspace.apu.edu.my/",
+            "User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36"
+        ]
+        
+        //Alamofire.request(URL(string: "https://postman-echo.com/post")!, method: .post, parameters: parameters)
+        Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/v1/tickets")!, method: .post, parameters:parameters, headers:headers)
             .validate()
             .response { (response) in
-                
-                print("Request: \(response.request)")
-                print("Response: \(response.response)")
-                print("Error: \(response.error)")
-                
-                if let data = response.data {
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        print(json)
-                        
-                    } catch {
-                        print("Error: ", error)
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    print("Data: \(utf8Text)") // original server data as UTF8 string
+                    ticket1 = utf8Text;
+                    Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/v1/tickets/" + ticket1 + "?service=https://cas.apiit.edu.my")!, method: .post, headers:headers)
+                        .validate()
+                        .response { (response) in
+                            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                                print("Data: \(utf8Text)") // original server data as UTF8 string
+                                ticket2 = utf8Text
+                                Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/p3/serviceValidate?format=json&service=https://cas.apiit.edu.my&ticket=" + ticket2)!, method: .get, headers:headers)
+                                    .validate()
+                                    .response { (response) in
+                                        if let data = response.data {
+                                            do {
+                                                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                                                print(json)
+                                                
+                                                if let dictionary = json as? [String: Any] {
+                                                    if let serviceResponse = dictionary["serviceResponse"] as? [String: Any]{
+                                                        if let authenticationSuccess = serviceResponse["authenticationSuccess"] as? [String: Any] {
+                                                            if let attributes = authenticationSuccess["attributes"] as? [String: Any] {
+                                                                print("User: \(attributes["user"])")
+                                                            }
+                                                        }
+                                                    }
+                                                    
+                                                    for (key, value) in dictionary {
+                                                        // access all key / value pairs in dictionary
+                                                    }
+                                                    
+                                                    if let nestedDictionary = dictionary["anotherKey"] as? [String: Any] {
+                                                        // access nested dictionary values by key
+                                                    }
+                                                }
+                                                
+                                                
+                                            } catch {
+                                                print("Error: ", error)
+                                            }
+                                        }
+                                }
+                            }
                     }
-                    
                 }
+                
         }
+//        Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/v1/tickets/" + ticket1 + "?service=https://cas.apiit.edu.my")!, method: .post, headers:headers)
+//            .validate()
+//            .response { (response) in
+//                print("Request: \(response.request)")
+//                print("Response: \(response.response)")
+//                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+//                    print("Data: \(utf8Text)") // original server data as UTF8 string
+//                    ticket2 = utf8Text
+//                }
+//        }
+//
+//        Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/p3/serviceValidate?format=json&service=https://cas.apiit.edu.my&ticket=" + ticket2)!, method: .get, headers:headers)
+//            .validate()
+//            .response { (response) in
+//                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+//                    print("Data: \(utf8Text)") // original server data as UTF8 string
+//                    ticket2 = utf8Text
+//                }
+//                if let data = response.data {
+//                    do {
+//                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+//                        print(json)
+//                    } catch {
+//                        print("Error: ", error)
+//                    }
+//                }
+//        }
     }
-
+    
 }
 
