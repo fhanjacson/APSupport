@@ -9,12 +9,20 @@
 import UIKit
 import Alamofire
 class ViewController: UIViewController {
-    
+    @IBOutlet weak var textUsername: UITextField!
+    @IBOutlet weak var textPassword: UITextField!
     @IBAction func buttonLogin(_ sender: Any) {
-        APKeyLogin(username: "TP045027", password: "POIPOI")
+        if ((textUsername.text != nil) && (textPassword.text != nil)){
+            
+        var username = textUsername.text
+        var password = textPassword.text
+            APKeyLogin(username: username!, password: password!)
+        }
     }
     let authorName = "Fhan Jacson";
     
+    @IBAction func buttonSkipLogin(_ sender: UIButton) {
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

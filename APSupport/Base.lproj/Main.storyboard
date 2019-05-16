@@ -96,6 +96,9 @@
                                         <state key="normal" title="SKIP LOGIN &gt;&gt;&gt;">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="buttonSkipLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="O93-wV-udK"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -112,10 +115,43 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="textPassword" destination="yrj-hh-z4J" id="gzd-ZW-GtC"/>
+                        <outlet property="textUsername" destination="a1Q-tO-kPk" id="UrU-Hw-Q3J"/>
+                        <segue destination="Q1c-zW-F1b" kind="show" id="79J-Be-WIl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-17" y="107"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="85g-KK-cTK">
+            <objects>
+                <tableViewController id="Q1c-zW-F1b" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="F00-Tc-7Et">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="zwr-9I-IqT">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zwr-9I-IqT" id="mfu-oy-mXX">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Q1c-zW-F1b" id="wwW-9P-PBp"/>
+                            <outlet property="delegate" destination="Q1c-zW-F1b" id="Oxf-hx-beL"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DA2-CR-Ik2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="721" y="107"/>
         </scene>
     </scenes>
 </document>
