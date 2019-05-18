@@ -191,7 +191,7 @@
                     </tableView>
                     <connections>
                         <outlet property="FAQCategory_Table" destination="qRF-Hz-yiN" id="Lva-S5-OGs"/>
-                        <segue destination="wrE-bb-UoZ" kind="show" id="bTp-gw-8G4"/>
+                        <segue destination="wrE-bb-UoZ" kind="show" identifier="toFAQItemList" id="bTp-gw-8G4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nsd-HB-njn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -207,7 +207,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="5e9-hf-zc8">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="5e9-hf-zc8" customClass="FAQItemListCell">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5e9-hf-zc8" id="0eY-5x-LRV">
@@ -222,6 +222,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="FAQItemList_Table" destination="Q4T-Nz-Rbw" id="D91-Qd-9hD"/>
                         <segue destination="ldu-nQ-zdf" kind="show" id="J8Z-6i-ndi"/>
                     </connections>
                 </tableViewController>

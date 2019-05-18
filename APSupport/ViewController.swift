@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import Alamofire_SwiftyJSON
 import SwiftyJSON
+import Firebase
 class ViewController: UIViewController {
     
     @IBOutlet weak var ActivityIndicator: UIActivityIndicatorView!
@@ -30,6 +31,9 @@ class ViewController: UIViewController {
     }
     
     var user = Profile()
+    var Firebasejson = NSDictionary()
+    var FAQjson = NSDictionary()
+    var Chatjson = NSDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,6 +127,27 @@ class ViewController: UIViewController {
             if let NavController = segue.destination as? UINavigationController,
                 let MainMenu = NavController.viewControllers.first as? MainMenuViewController {
                 MainMenu.user = user
+                
+                var ref: DatabaseReference!
+                ref = Database.database().reference()
+                
+                ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get user value
+                    let value = snapshot.value as? NSDictionary
+                    self.Firebasejson = value!
+                    print(JSON(self.Firebasejson))
+                    self.FAQjson = self.Firebasejson["FAQ"] as! NSDictionary
+                    self.Chatjson = self.Firebasejson["Chat"] as! NSDictionary
+                    print("faq array count: \(self.FAQjson.count)")
+                    print("chat array count: \(self.Chatjson.count)")
+                    MainMenu.Firebasejson = self.Firebasejson
+                    MainMenu.FAQjson = self.FAQjson
+                    MainMenu.Chatjson = self.Chatjson
+                    
+                    // ...
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
             }
         }
     }

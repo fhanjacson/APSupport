@@ -142,15 +142,15 @@
 			isa = PBXGroup;
 			children = (
 				7B7D47772272B84700E0FDA0 /* AppDelegate.swift */,
-				7B7D47792272B84700E0FDA0 /* ViewController.swift */,
 				7B7D477B2272B84700E0FDA0 /* Main.storyboard */,
 				7B7D47812272B84900E0FDA0 /* Assets.xcassets */,
 				7B7D47832272B84900E0FDA0 /* LaunchScreen.storyboard */,
 				7B7D47862272B84900E0FDA0 /* Info.plist */,
 				7B7D477E2272B84700E0FDA0 /* APSupport.xcdatamodeld */,
 				F2787842228C057F005975E8 /* GoogleService-Info.plist */,
-				7B10135F228EC16E00CBFE89 /* MainMenuViewController.swift */,
 				7BDDA82A228FB9E700FEFBFD /* APSupport.swift */,
+				7B7D47792272B84700E0FDA0 /* ViewController.swift */,
+				7B10135F228EC16E00CBFE89 /* MainMenuViewController.swift */,
 				7BDDA83A228FCAA100FEFBFD /* FAQCategory.swift */,
 				7BDDA83C228FCAE200FEFBFD /* FAQItemList.swift */,
 				7BDDA840228FCB8800FEFBFD /* FAQItemDetail.swift */,

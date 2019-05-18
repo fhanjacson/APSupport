@@ -7,12 +7,26 @@
 //
 
 import UIKit
+import SwiftyJSON
+import Firebase
 
 class FAQItemList: UITableViewController {
-
+    @IBOutlet var FAQItemList_Table: UITableView!
+    
+    var selectedFAQCategory: String?
+    var selectedFAQItemListIndex: Int?
+    var FAQList: [NSDictionary]?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("")
+        print("#FAQItemList")
+        print("1st article: \(FAQList![0]["title"])")
+        
+        
+        
+        print("end")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -20,6 +34,10 @@ class FAQItemList: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        FAQItemList_Table.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -29,24 +47,38 @@ class FAQItemList: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        //return FAQItemList!.count
+        return FAQList!.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return selectedFAQCategory
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FAQItemListCell", for: indexPath)
+        cell.textLabel?.text = FAQList![indexPath.item]["title"] as? String
         // Configure the cell...
 
         return cell
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print("Selected: \(FAQList![indexPath.item]["title"])")
+        selectedFAQItemListIndex = indexPath.item
+        tableView.deselectRow(at: indexPath, animated: true)
+        //performSegue(withIdentifier: "toFAQItemList", sender: self)
+        
+    }
 
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
