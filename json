@@ -1,0 +1,21 @@
+{
+ "FAQ" : {
+   "General" : [{
+     "id" : 1,
+     "title" : "FAQ title one",
+     "content" : "asdas das da s"
+   },
+   {
+     "id" : 2,
+     "title" : "FAQ title two",
+     "content" : "as 21 32 21 f "
+     
+   }
+   
+   
+   ]
+ },
+ "Chat" : {
+   
+ }
+}

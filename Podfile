@@ -9,5 +9,7 @@ target 'APSupport' do
 
  pod 'Firebase/Core'
  pod 'Alamofire', '~> 4.7'
-
+ pod 'Alamofire-SwiftyJSON'
+ pod 'Firebase/Analytics'
+ pod 'Firebase/Database'
 end

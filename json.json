@@ -1,0 +1,32 @@
+{
+ "FAQ" : {
+   "General" : [{
+     "id" : 1,
+     "title" : "FAQ title one",
+     "content" : "asdas das da s"
+   },
+   {
+     "id" : 2,
+     "title" : "FAQ title two",
+     "content" : "as 21 32 21 f "
+   }],
+   "APCard" : [{
+     "id" : 1,
+     "title" : "What is APCard?",
+     "content" : "APCard is an on-campus cashless transaction system that is integrated with the student card. It is used for on-campus transactions including payment for parking, cafeteria, convenience store and the SweatZone lockers."
+   },{
+     "id" : 2,
+     "title" : "How do I activate my APCard?",
+     "content" : "The APCard is activated by APU prior to issuance."
+   }]
+ },
+ "Chat" : {
+  "General":[{
+    "id" : 1,
+    "message" : "hey",
+    "datetime" : ""
+  }],
+  "Academic" : [],
+  "Out of Topic" : []
+  }
+}
