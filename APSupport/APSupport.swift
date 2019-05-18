@@ -12,6 +12,19 @@ struct Profile {
     var Username: String
     var FullName: String
     var MainTicket: String
+    init() {
+        self.FullName = "";
+        self.MainTicket = "";
+        self.Username = "";
+    }
+    
+    init(fullname: String, username: String, mainticket: String) {
+        self.FullName = fullname;
+        self.MainTicket = mainticket;
+        self.Username = username;
+    }
+    
+    
 }
 
 struct FAQ_Article {

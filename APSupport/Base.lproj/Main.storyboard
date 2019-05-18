@@ -241,7 +241,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xfE-ba-Oui" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4401" y="54"/>
+            <point key="canvasLocation" x="4137" y="54"/>
         </scene>
         <!--Chat Category-->
         <scene sceneID="yma-ct-t25">
@@ -302,10 +302,10 @@
             </objects>
             <point key="canvasLocation" x="3313" y="-771"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation View Controller-->
         <scene sceneID="u7f-2y-xvt">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sXg-Yv-Kou" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sXg-Yv-Kou" customClass="NavigationViewController" customModule="APSupport" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2Hn-rE-yMo">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

@@ -15,9 +15,20 @@ class MainMenuViewController: UIViewController {
         performSegue(withIdentifier: "toFAQMenu", sender: self)
     }
     
+    var fullname = ""
+    var username = ""
+    var mainticket = ""
+    var user = Profile()
+    
+    
     override func viewDidLoad() {
+        print("")
+        print("#MainMenuViewController")
         super.viewDidLoad()
         
+        print("UserName: \(user.Username)")
+        print("FullName: \(user.FullName)")
+        print("MainTicket: \(user.MainTicket)")
         
         // Do any additional setup after loading the view.
     }
@@ -27,7 +38,10 @@ class MainMenuViewController: UIViewController {
         var ref: DatabaseReference!
         ref = Database.database().reference()
         
-        let chattest = ["id":"3","message": "Hello World","datetime":"2019-05-15 14:33:33", "username" : "TP045027"]
+        let chattest = ["id":"3",
+                        "message": "Hello World",
+                        "datetime":"2019-05-15 14:33:33",
+                        "username" : "TP045027"]
         
         ref.child("Chat").child("General").child("1").setValue(chattest)
         
@@ -61,6 +75,7 @@ class MainMenuViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "toFAQMenu" {
             getFAQCategory()
+            
             
             
             

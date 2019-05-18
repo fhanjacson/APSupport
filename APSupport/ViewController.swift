@@ -18,8 +18,8 @@ class ViewController: UIViewController {
     @IBAction func buttonLogin(_ sender: Any) {
         if ((textUsername.text != nil) && (textPassword.text != nil)){
             
-            var username = textUsername.text
-            var password = textPassword.text
+            let username = textUsername.text
+            let password = textPassword.text
             APKeyLogin(username: username!, password: password!)
         }
     }
@@ -28,6 +28,9 @@ class ViewController: UIViewController {
     @IBAction func buttonSkipLogin(_ sender: UIButton) {
         
     }
+    
+    var user = Profile()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ActivityIndicator.stopAnimating()
@@ -79,23 +82,25 @@ class ViewController: UIViewController {
                                             let json = JSON(response.result.value!)
                                             let fullname = json["serviceResponse"]["authenticationSuccess"]["attributes"]["displayName"][0].string
                                             let mainticket = ticket2
-                                            let userprofile = Profile.init(Username: username, FullName: fullname!, MainTicket: mainticket)
-                                            
+                                            let userprofile = Profile.init(fullname: fullname!, username: username, mainticket: mainticket)
+                                            self.user = userprofile
+                                            print("###UserProfile###")
                                             print("Username: \(userprofile.Username)")
                                             print("Full Name: \(userprofile.FullName)")
                                             print("Ticket: \(userprofile.MainTicket)")
+                                            print("###User###")
+                                            print("Username: \(self.user.Username)")
+                                            print("Full Name: \(self.user.FullName)")
+                                            print("Ticket: \(self.user.MainTicket)")
                                             isAuthenticated = true;
                                             if (isAuthenticated){
-                                                self.gogo()
+                                                self.gogo(user: userprofile)
                                             } else {
                                                 print("Error: Something is wrong")
-                                            }
-                                            
+                                            }       
                                     }
-                                    
                                 }
                         }
-                        
                     }
                 } else {
                     print("Invalid Credential")
@@ -103,74 +108,22 @@ class ViewController: UIViewController {
                 self.ActivityIndicator.stopAnimating()
         }
         
-        
-        
-}
+    }
     
-    func gogo() {
+    func gogo(user: Profile) {
+        
         performSegue(withIdentifier: "toMainMenu", sender: self)
+        
+        
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toMainMenu" {
-            
+            if let NavController = segue.destination as? UINavigationController,
+                let MainMenu = NavController.viewControllers.first as? MainMenuViewController {
+                MainMenu.user = user
+            }
         }
     }
-    
 }
-//                                        .responseJSON {
-//                                            response in
-//                                            if let serviceResponse = response.result.value as? [String: Any] {
-//                                                if let authenticationSuccess = serviceResponse["serviceResponse"] as? [String: Any] {
-//                                                    if let attributes = authenticationSuccess["authenticationSuccess"] as? [String: Any] {
-//                                                        print(attributes["attributes"])
-//                                                    }
-//                                                }
-//                                            }
-//                                        }
-//                                        .response { (response) in
-//                                            if let data = response.data {
-//                                                do {
-//
-//                                                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                                                    print(json)
-//
-//                                                    let jsonArray = json as? [String: Any]
-//                                                    print("123")
-//                                                    print(jsonArray)
-//                                                    print("abc")
-//
-//                                                } catch {
-//                                                    print("Error: ", error)
-//                                                }
-//                                            }
-//                                    }
-
-//        Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/v1/tickets/" + ticket1 + "?service=https://cas.apiit.edu.my")!, method: .post, headers:headers)
-//            .validate()
-//            .response { (response) in
-//                print("Request: \(response.request)")
-//                print("Response: \(response.response)")
-//                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-//                    print("Data: \(utf8Text)") // original server data as UTF8 string
-//                    ticket2 = utf8Text
-//                }
-//        }
-//
-//        Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/p3/serviceValidate?format=json&service=https://cas.apiit.edu.my&ticket=" + ticket2)!, method: .get, headers:headers)
-//            .validate()
-//            .response { (response) in
-//                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-//                    print("Data: \(utf8Text)") // original server data as UTF8 string
-//                    ticket2 = utf8Text
-//                }
-//                if let data = response.data {
-//                    do {
-//                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                        print(json)
-//                    } catch {
-//                        print("Error: ", error)
-//                    }
-//                }
-//        }
