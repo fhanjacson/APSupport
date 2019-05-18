@@ -10,14 +10,29 @@ import UIKit
 
 class FAQCategory: UITableViewController {
 
+    @IBOutlet var FAQCategory_Table: UITableView!
+    
+    let FAQCategory = ["General", "APCard", "APSpace", "Admin"]
+    
+    var selectedFAQCategory = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("")
+        print("#FAQCategory")
+        FAQCategory_Table.dataSource = self
+        FAQCategory_Table.delegate = self
+        FAQCategory_Table.register(UITableViewCell.self, forCellReuseIdentifier: "FAQCategoryCell")
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        FAQCategory_Table.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,23 +44,32 @@ class FAQCategory: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return FAQCategory.count
     }
 
-    /*
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "FAQ Category"
+    }
+   
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FAQCategoryCell", for: indexPath)
+        cell.textLabel?.text = FAQCategory[indexPath.item]
 
         // Configure the cell...
 
         return cell
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Selected: \(FAQCategory[indexPath.item])")
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
     /*
     // Override to support conditional editing of the table view.

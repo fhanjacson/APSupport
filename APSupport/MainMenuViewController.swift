@@ -15,9 +15,6 @@ class MainMenuViewController: UIViewController {
         performSegue(withIdentifier: "toFAQMenu", sender: self)
     }
     
-    var fullname = ""
-    var username = ""
-    var mainticket = ""
     var user = Profile()
     
     
@@ -43,23 +40,23 @@ class MainMenuViewController: UIViewController {
                         "datetime":"2019-05-15 14:33:33",
                         "username" : "TP045027"]
         
-        ref.child("Chat").child("General").child("1").setValue(chattest)
-        
-        ref.child("FAQ").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            let valuejson = JSON(value!)
-            for i in valuejson {
-                print(i.0)
-            }
-            //print(valuejson["APCard"]["0"]["content"])
-            
-            
-            
-            // ...
-        }) { (error) in
-            print(error.localizedDescription)
-        }
+//        ref.child("Chat").child("General").child("1").setValue(chattest)
+//        
+//        ref.child("FAQ").observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            let value = snapshot.value as? NSDictionary
+//            let valuejson = JSON(value!)
+//            for i in valuejson {
+//                print(i.0)
+//            }
+//            //print(valuejson["APCard"]["0"]["content"])
+//            
+//            
+//            
+//            // ...
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
     }
     
     override func didReceiveMemoryWarning() {
