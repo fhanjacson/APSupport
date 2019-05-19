@@ -10,8 +10,22 @@ import UIKit
 
 class FAQItemDetail: UIViewController {
 
+    @IBOutlet weak var TitleLabel: UILabel!
+    @IBOutlet weak var ContentLabel: UILabel!
+    
+    
+    var selectedFAQItemListIndex: Int?
+    var FAQItemListDict: [NSDictionary]?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        TitleLabel.numberOfLines = 2
+        ContentLabel.numberOfLines = 0
+        
+        TitleLabel.text = FAQItemListDict![selectedFAQItemListIndex!]["title"] as! String
+        ContentLabel.text = FAQItemListDict![selectedFAQItemListIndex!]["content"] as! String
 
         // Do any additional setup after loading the view.
     }

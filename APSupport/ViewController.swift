@@ -27,17 +27,21 @@ class ViewController: UIViewController {
     let authorName = "Fhan Jacson";
     
     @IBAction func buttonSkipLogin(_ sender: UIButton) {
-        
+        //performSegue(withIdentifier: "toMainMenuNoLogin", sender: self)
     }
     
     var user = Profile()
     var Firebasejson = NSDictionary()
     var FAQjson = NSDictionary()
     var Chatjson = NSDictionary()
+    var FAQCategoryArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ActivityIndicator.stopAnimating()
+        ActivityIndicator.isHidden = true
+        ActivityIndicator.hidesWhenStopped = true
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -47,6 +51,7 @@ class ViewController: UIViewController {
     }
     
     func APKeyLogin(username: String, password: String) {
+        ActivityIndicator.isHidden = false
         ActivityIndicator.startAnimating()
         var ticket1: String = ""
         var ticket2: String = ""
@@ -88,14 +93,14 @@ class ViewController: UIViewController {
                                             let mainticket = ticket2
                                             let userprofile = Profile.init(fullname: fullname!, username: username, mainticket: mainticket)
                                             self.user = userprofile
-                                            print("###UserProfile###")
-                                            print("Username: \(userprofile.Username)")
-                                            print("Full Name: \(userprofile.FullName)")
-                                            print("Ticket: \(userprofile.MainTicket)")
-                                            print("###User###")
-                                            print("Username: \(self.user.Username)")
-                                            print("Full Name: \(self.user.FullName)")
-                                            print("Ticket: \(self.user.MainTicket)")
+//                                            print("###UserProfile###")
+//                                            print("Username: \(userprofile.Username)")
+//                                            print("Full Name: \(userprofile.FullName)")
+//                                            print("Ticket: \(userprofile.MainTicket)")
+//                                            print("###User###")
+//                                            print("Username: \(self.user.Username)")
+//                                            print("Full Name: \(self.user.FullName)")
+//                                            print("Ticket: \(self.user.MainTicket)")
                                             isAuthenticated = true;
                                             if (isAuthenticated){
                                                 self.gogo(user: userprofile)
@@ -124,10 +129,11 @@ class ViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toMainMenu" {
+            print("#ToMainMenu")
             if let NavController = segue.destination as? UINavigationController,
                 let MainMenu = NavController.viewControllers.first as? MainMenuViewController {
                 MainMenu.user = user
-                
+                MainMenu.buttonChatEnabled = true
                 var ref: DatabaseReference!
                 ref = Database.database().reference()
                 
@@ -135,20 +141,67 @@ class ViewController: UIViewController {
                     // Get user value
                     let value = snapshot.value as? NSDictionary
                     self.Firebasejson = value!
-                    print(JSON(self.Firebasejson))
+                    //print(JSON(self.Firebasejson))
                     self.FAQjson = self.Firebasejson["FAQ"] as! NSDictionary
+                    
                     self.Chatjson = self.Firebasejson["Chat"] as! NSDictionary
-                    print("faq array count: \(self.FAQjson.count)")
-                    print("chat array count: \(self.Chatjson.count)")
+                    //print("faq array count: \(self.FAQjson.count)")
+                    //print("chat array count: \(self.Chatjson.count)")
                     MainMenu.Firebasejson = self.Firebasejson
                     MainMenu.FAQjson = self.FAQjson
                     MainMenu.Chatjson = self.Chatjson
-                    
+                    print("PLS WORK PLS: \(self.FAQjson)")
+                    let jsonFAQjson = JSON(self.FAQjson)
+                    for i in jsonFAQjson {
+                        //print("#\(i.0)#")
+                        self.FAQCategoryArray.append(i.0 as String)
+                    }
+                    MainMenu.FAQCategoryArray = self.FAQCategoryArray
                     // ...
                 }) { (error) in
                     print(error.localizedDescription)
                 }
             }
         }
+//        if segue.identifier == "toMainMenuNoLogin" {
+//            print("#ToMainMenuNoLogin")
+//
+//            if let NavController = segue.destination as? UINavigationController,
+//                let MainMenu = NavController.viewControllers.first as? MainMenuViewController {
+//                MainMenu.buttonChatEnabled = false
+//                MainMenu.user = Profile()
+//
+//                var ref: DatabaseReference!
+//                ref = Database.database().reference()
+//
+//                ref.observeSingleEvent(of: .value, with: { (snapshot) in
+//                    // Get user value
+//                    let value = snapshot.value as? NSDictionary
+//                    self.Firebasejson = value!
+//                    print(JSON(self.Firebasejson))
+//                    self.FAQjson = self.Firebasejson["FAQ"] as! NSDictionary
+//                    self.Chatjson = self.Firebasejson["Chat"] as! NSDictionary
+//                    print("faq array count: \(self.FAQjson.count)")
+//                    print("chat array count: \(self.Chatjson.count)")
+//                    MainMenu.Firebasejson = self.Firebasejson
+//                    MainMenu.FAQjson = self.FAQjson
+//                    MainMenu.Chatjson = self.Chatjson
+//                    let jsonFAQjson = JSON(self.FAQjson)
+//                    for i in jsonFAQjson {
+//                        print("#\(i.0)#")
+//                        self.FAQCategoryArray.append(i.0 as String)
+//                    }
+//                    MainMenu.FAQCategoryArray = self.FAQCategoryArray
+//                    // ...
+//                }) { (error) in
+//                    print(error.localizedDescription)
+//                }
+//
+//
+//            }
+//
+//        }
+        
+        
     }
 }

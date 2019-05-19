@@ -13,9 +13,9 @@ struct Profile {
     var FullName: String
     var MainTicket: String
     init() {
-        self.FullName = "";
-        self.MainTicket = "";
-        self.Username = "";
+        self.FullName = "Guest";
+        self.MainTicket = "NONE";
+        self.Username = "Guest";
     }
     
     init(fullname: String, username: String, mainticket: String) {

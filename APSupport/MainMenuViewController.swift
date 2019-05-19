@@ -12,23 +12,43 @@ import SwiftyJSON
 
 class MainMenuViewController: UIViewController {
     @IBAction func buttonFAQ(_ sender: Any) {
-        performSegue(withIdentifier: "toFAQMenu", sender: self)
+        performSegue(withIdentifier: "toFAQCategory", sender: self)
     }
+    @IBAction func buttonChat(_ sender: Any) {
+        performSegue(withIdentifier: "toChatCategory", sender: self)
+    }
+    @IBOutlet weak var welcomeLabel: UILabel!
+   
+    @IBOutlet weak var buttonChatOutlet: UIButton!
     
     var user = Profile()
     var Firebasejson = NSDictionary()
     var FAQjson = NSDictionary()
     var Chatjson = NSDictionary()
-    
+    var FAQCategoryArray = [String]()
+    var buttonChatEnabled : Bool = false
+
     
     override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        sleep(3)
         print("")
         print("#MainMenuViewController")
-        super.viewDidLoad()
+        print("PLS WORK PLS: \(self.FAQjson)")
         
-        print("UserName: \(user.Username)")
-        print("FullName: \(user.FullName)")
-        print("MainTicket: \(user.MainTicket)")
+        welcomeLabel.text = "Welcome, \(user.FullName)"
+        buttonChatOutlet.isEnabled = buttonChatEnabled
+        
+        
+//
+//        print("UserName: \(user.Username)")
+//        print("FullName: \(user.FullName)")
+//        print("MainTicket: \(user.MainTicket)")
+//
+        
+        //print("FAQjson[0]: \(FAQjson[0])")
+        
         
         // Do any additional setup after loading the view.
     }
@@ -73,8 +93,11 @@ class MainMenuViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "toFAQMenu" {
-            
+        if segue.identifier == "toFAQCategory" {
+            if let FAQCategory = segue.destination as? FAQCategory {
+                FAQCategory.FAQjson = FAQjson
+                FAQCategory.FAQCategoryArray = FAQCategoryArray
+            }
             
             
             

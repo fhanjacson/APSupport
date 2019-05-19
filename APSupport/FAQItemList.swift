@@ -15,14 +15,17 @@ class FAQItemList: UITableViewController {
     
     var selectedFAQCategory: String?
     var selectedFAQItemListIndex: Int?
-    var FAQList: [NSDictionary]?
+    var FAQItemListDict: [NSDictionary]?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("")
         print("#FAQItemList")
-        print("1st article: \(FAQList![0]["title"])")
+        FAQItemList_Table.dataSource = self
+        FAQItemList_Table.delegate = self
+        FAQItemList_Table.register(UITableViewCell.self, forCellReuseIdentifier: "FAQItemListCell")
+        print("1st article: \(FAQItemListDict![0]["title"])")
         
         
         
@@ -53,7 +56,7 @@ class FAQItemList: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         //return FAQItemList!.count
-        return FAQList!.count
+        return FAQItemListDict!.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -63,7 +66,8 @@ class FAQItemList: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FAQItemListCell", for: indexPath)
-        cell.textLabel?.text = FAQList![indexPath.item]["title"] as? String
+        cell.textLabel?.text = FAQItemListDict![indexPath.item]["title"] as? String
+        cell.textLabel?.numberOfLines = 0;
         // Configure the cell...
 
         return cell
@@ -71,10 +75,10 @@ class FAQItemList: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print("Selected: \(FAQList![indexPath.item]["title"])")
+        print("Selected: \(FAQItemListDict![indexPath.item]["title"])")
         selectedFAQItemListIndex = indexPath.item
         tableView.deselectRow(at: indexPath, animated: true)
-        //performSegue(withIdentifier: "toFAQItemList", sender: self)
+        performSegue(withIdentifier: "toFAQItemDetail", sender: self)
         
     }
 
@@ -114,14 +118,22 @@ class FAQItemList: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "toFAQItemDetail" {
+            if let FAQItemDetail = segue.destination as? FAQItemDetail {
+                    FAQItemDetail.selectedFAQItemListIndex = selectedFAQItemListIndex
+                    FAQItemDetail.FAQItemListDict = FAQItemListDict
+            }
+        }
+            
+        
     }
-    */
+    
 
 }

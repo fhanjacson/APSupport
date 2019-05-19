@@ -16,13 +16,14 @@ class FAQCategory: UITableViewController {
     
     var user = Profile()
     var FAQjson = NSDictionary()
-    var selectedFAQCategoryIndex: Int?
-    
+    var selectedFAQCategoryItem: String = ""
+    var FAQCategoryArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("")
         print("#FAQCategory")
+        print(FAQjson)
         FAQCategory_Table.dataSource = self
         FAQCategory_Table.delegate = self
         FAQCategory_Table.register(UITableViewCell.self, forCellReuseIdentifier: "FAQCategoryCell")
@@ -52,7 +53,7 @@ class FAQCategory: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return FAQjson.count
+        return FAQCategoryArray.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -62,7 +63,7 @@ class FAQCategory: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FAQCategoryCell", for: indexPath)
-        cell.textLabel?.text = FAQjson[indexPath.item] as! String
+        cell.textLabel?.text = FAQCategoryArray[indexPath.item]
         
         // Configure the cell...
         
@@ -71,12 +72,10 @@ class FAQCategory: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print("Selected: \(FAQjson[indexPath.item])")
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        
-        
-        //performSegue(withIdentifier: "toFAQItemList", sender: self)
+        print("Selected: \(FAQCategoryArray[indexPath.item])")
+        selectedFAQCategoryItem = FAQCategoryArray[indexPath.item]
+        tableView.deselectRow(at: indexPath, animated: true)        
+        performSegue(withIdentifier: "toFAQItemList", sender: self)
         
         
     }
@@ -129,7 +128,9 @@ class FAQCategory: UITableViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "toFAQItemList" {
             if let FAQItemList = segue.destination as? FAQItemList {
-                //FAQItemList.selectedFAQCategory = selectedFAQCategory
+                print(FAQjson[selectedFAQCategoryItem])
+                FAQItemList.FAQItemListDict = FAQjson[selectedFAQCategoryItem] as? [NSDictionary]
+                
                 
                 
             }
