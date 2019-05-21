@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75662A7548C8BDDA2595AF93 /* Pods_APSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517FB9BED6B2515576C479C4 /* Pods_APSupport.framework */; };
 		7B101360228EC16E00CBFE89 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B10135F228EC16E00CBFE89 /* MainMenuViewController.swift */; };
+		7B23436B2293A3420033A9BC /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B23436A2293A3420033A9BC /* FirebaseCore.framework */; };
+		7B23436D2293A3420033A9BC /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B23436C2293A3420033A9BC /* FirebaseDatabase.framework */; };
+		7B23436F2293A3420033A9BC /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B23436E2293A3420033A9BC /* FirebaseInstanceID.framework */; };
 		7B7D47782272B84700E0FDA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D47772272B84700E0FDA0 /* AppDelegate.swift */; };
 		7B7D477A2272B84700E0FDA0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D47792272B84700E0FDA0 /* ViewController.swift */; };
 		7B7D477D2272B84700E0FDA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7D477B2272B84700E0FDA0 /* Main.storyboard */; };
@@ -23,7 +27,6 @@
 		7BDDA843228FCBBB00FEFBFD /* ChatCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDA842228FCBBB00FEFBFD /* ChatCategory.swift */; };
 		7BDDA845228FCBEA00FEFBFD /* ChatDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDA844228FCBEA00FEFBFD /* ChatDetail.swift */; };
 		7BDDA849228FF23200FEFBFD /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDA848228FF23200FEFBFD /* NavigationViewController.swift */; };
-		8CDB0A5C0B0F5BB16739BA2C /* Pods_APSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9362E2B295499DA6C255F2D3 /* Pods_APSupport.framework */; };
 		F2787843228C057F005975E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2787842228C057F005975E8 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -46,13 +49,11 @@
 
 /* Begin PBXFileReference section */
 		0A463FD1412F9FC19E192371 /* Pods-APSupport.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APSupport.debug.xcconfig"; path = "Pods/Target Support Files/Pods-APSupport/Pods-APSupport.debug.xcconfig"; sourceTree = "<group>"; };
-		34D61D03ADF65C7C0C9BC4AC /* Pods_APSupportUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APSupportUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		70DA8D8542FE134D2A4BE6EB /* Pods_APSupportTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APSupportTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B101355228EB22300CBFE89 /* Alamofire_SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire_SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B101357228EB22300CBFE89 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B101359228EB22300CBFE89 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B10135B228EB25900CBFE89 /* Alamofire_SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire_SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		517FB9BED6B2515576C479C4 /* Pods_APSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B10135F228EC16E00CBFE89 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		7B23436A2293A3420033A9BC /* FirebaseCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B23436C2293A3420033A9BC /* FirebaseDatabase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseDatabase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B23436E2293A3420033A9BC /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseInstanceID.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7D47742272B84700E0FDA0 /* APSupport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APSupport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7D47772272B84700E0FDA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B7D47792272B84700E0FDA0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,8 +68,6 @@
 		7B7D47962272B84900E0FDA0 /* APSupportUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = APSupportUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7D479A2272B84900E0FDA0 /* APSupportUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APSupportUITests.swift; sourceTree = "<group>"; };
 		7B7D479C2272B84900E0FDA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7B7D47AD2272C94800E0FDA0 /* FUIButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FUIButton.h; path = "../../Downloads/FlatUIKit-master/Classes/ios/FUIButton.h"; sourceTree = "<group>"; };
-		7B7D47AE2272C94800E0FDA0 /* FUIButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = FUIButton.m; path = "../../Downloads/FlatUIKit-master/Classes/ios/FUIButton.m"; sourceTree = "<group>"; };
 		7BDDA82A228FB9E700FEFBFD /* APSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APSupport.swift; sourceTree = "<group>"; };
 		7BDDA83A228FCAA100FEFBFD /* FAQCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQCategory.swift; sourceTree = "<group>"; };
 		7BDDA83C228FCAE200FEFBFD /* FAQItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQItemList.swift; sourceTree = "<group>"; };
@@ -76,7 +75,6 @@
 		7BDDA842228FCBBB00FEFBFD /* ChatCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCategory.swift; sourceTree = "<group>"; };
 		7BDDA844228FCBEA00FEFBFD /* ChatDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetail.swift; sourceTree = "<group>"; };
 		7BDDA848228FF23200FEFBFD /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
-		9362E2B295499DA6C255F2D3 /* Pods_APSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9EE02330EBB9BDBD1F90220 /* Pods-APSupport.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APSupport.release.xcconfig"; path = "Pods/Target Support Files/Pods-APSupport/Pods-APSupport.release.xcconfig"; sourceTree = "<group>"; };
 		F2787842228C057F005975E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,7 +84,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CDB0A5C0B0F5BB16739BA2C /* Pods_APSupport.framework in Frameworks */,
+				7B23436B2293A3420033A9BC /* FirebaseCore.framework in Frameworks */,
+				7B23436D2293A3420033A9BC /* FirebaseDatabase.framework in Frameworks */,
+				7B23436F2293A3420033A9BC /* FirebaseInstanceID.framework in Frameworks */,
+				75662A7548C8BDDA2595AF93 /* Pods_APSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,15 +183,10 @@
 		7B7D47AC2272C94700E0FDA0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7B10135B228EB25900CBFE89 /* Alamofire_SwiftyJSON.framework */,
-				7B101355228EB22300CBFE89 /* Alamofire_SwiftyJSON.framework */,
-				7B101357228EB22300CBFE89 /* Alamofire.framework */,
-				7B101359228EB22300CBFE89 /* SwiftyJSON.framework */,
-				7B7D47AD2272C94800E0FDA0 /* FUIButton.h */,
-				7B7D47AE2272C94800E0FDA0 /* FUIButton.m */,
-				9362E2B295499DA6C255F2D3 /* Pods_APSupport.framework */,
-				70DA8D8542FE134D2A4BE6EB /* Pods_APSupportTests.framework */,
-				34D61D03ADF65C7C0C9BC4AC /* Pods_APSupportUITests.framework */,
+				7B23436A2293A3420033A9BC /* FirebaseCore.framework */,
+				7B23436C2293A3420033A9BC /* FirebaseDatabase.framework */,
+				7B23436E2293A3420033A9BC /* FirebaseInstanceID.framework */,
+				517FB9BED6B2515576C479C4 /* Pods_APSupport.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -350,7 +346,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-APSupport/Pods-APSupport-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-APSupport/Pods-APSupport-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-SwiftyJSON/Alamofire_SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
@@ -369,7 +365,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-APSupport/Pods-APSupport-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-APSupport/Pods-APSupport-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

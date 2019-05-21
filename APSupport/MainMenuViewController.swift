@@ -19,6 +19,7 @@ class MainMenuViewController: UIViewController {
     }
     @IBOutlet weak var welcomeLabel: UILabel!
    
+    @IBOutlet weak var IntakeLabel: UILabel!
     @IBOutlet weak var buttonChatOutlet: UIButton!
     
     var user = Profile()
@@ -26,18 +27,24 @@ class MainMenuViewController: UIViewController {
     var FAQjson = NSDictionary()
     var Chatjson = NSDictionary()
     var FAQCategoryArray = [String]()
+    var StudentCourse = [NSDictionary]()
+    
+    
     var buttonChatEnabled : Bool = false
-
+    
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        sleep(3)
         print("")
         print("#MainMenuViewController")
-        print("PLS WORK PLS: \(self.FAQjson)")
         
+        let StudentIntake : String! = StudentCourse[0]["INTAKE_CODE"] as! String
+        
+        //print("PLS WORK PLS: \(self.FAQjson)")
+        print("Student Course: \(self.StudentCourse)")
         welcomeLabel.text = "Welcome, \(user.FullName)"
+        IntakeLabel.text = "Intake: \(StudentIntake!)"
         buttonChatOutlet.isEnabled = buttonChatEnabled
         
         

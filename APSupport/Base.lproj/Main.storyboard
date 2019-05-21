@@ -160,17 +160,27 @@
                                     <action selector="buttonFAQ:" destination="eKn-Tt-Nai" eventType="touchUpInside" id="wzn-Zr-6Q0"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ew-0M-AeA">
+                                <rect key="frame" x="20" y="120" width="335" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="XcQ-UE-xuP" firstAttribute="trailing" secondItem="3Ew-0M-AeA" secondAttribute="trailing" constant="20" id="SL1-nL-Vzm"/>
                             <constraint firstItem="Dns-Gl-PaG" firstAttribute="leading" secondItem="XcQ-UE-xuP" secondAttribute="leading" constant="20" id="iPi-DK-IFc"/>
+                            <constraint firstItem="3Ew-0M-AeA" firstAttribute="leading" secondItem="XcQ-UE-xuP" secondAttribute="leading" constant="20" id="isb-54-SyK"/>
                             <constraint firstItem="XcQ-UE-xuP" firstAttribute="trailing" secondItem="Dns-Gl-PaG" secondAttribute="trailing" constant="20" id="v48-9u-yON"/>
+                            <constraint firstItem="3Ew-0M-AeA" firstAttribute="top" secondItem="Dns-Gl-PaG" secondAttribute="bottom" constant="10" id="v6d-gU-g6L"/>
                             <constraint firstItem="Dns-Gl-PaG" firstAttribute="top" secondItem="XcQ-UE-xuP" secondAttribute="top" constant="25" id="w78-SP-DHE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XcQ-UE-xuP"/>
                     </view>
                     <navigationItem key="navigationItem" id="n4J-51-NCr"/>
                     <connections>
+                        <outlet property="IntakeLabel" destination="3Ew-0M-AeA" id="Xcc-j0-41g"/>
                         <outlet property="buttonChatOutlet" destination="g2G-P6-J3X" id="Ekl-vH-RXH"/>
                         <outlet property="welcomeLabel" destination="Dns-Gl-PaG" id="2VP-gy-rnE"/>
                         <segue destination="3Is-NF-dM2" kind="show" identifier="toFAQCategory" id="9Cx-QJ-4u1"/>
