@@ -12,6 +12,8 @@
 		7B23436B2293A3420033A9BC /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B23436A2293A3420033A9BC /* FirebaseCore.framework */; };
 		7B23436D2293A3420033A9BC /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B23436C2293A3420033A9BC /* FirebaseDatabase.framework */; };
 		7B23436F2293A3420033A9BC /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B23436E2293A3420033A9BC /* FirebaseInstanceID.framework */; };
+		7B2343732293DACB0033A9BC /* APSupport.db in Resources */ = {isa = PBXBuildFile; fileRef = 7B2343722293DACB0033A9BC /* APSupport.db */; };
+		7B2343AD229411590033A9BC /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B2343AC229411590033A9BC /* SQLite.framework */; };
 		7B7D47782272B84700E0FDA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D47772272B84700E0FDA0 /* AppDelegate.swift */; };
 		7B7D477A2272B84700E0FDA0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D47792272B84700E0FDA0 /* ViewController.swift */; };
 		7B7D477D2272B84700E0FDA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7D477B2272B84700E0FDA0 /* Main.storyboard */; };
@@ -54,6 +56,10 @@
 		7B23436A2293A3420033A9BC /* FirebaseCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B23436C2293A3420033A9BC /* FirebaseDatabase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseDatabase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B23436E2293A3420033A9BC /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseInstanceID.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B2343722293DACB0033A9BC /* APSupport.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = APSupport.db; path = LocalDatabase/APSupport.db; sourceTree = "<group>"; };
+		7B2343A422940DB50033A9BC /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B2343AA22940EB30033A9BC /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B2343AC229411590033A9BC /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7D47742272B84700E0FDA0 /* APSupport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APSupport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7D47772272B84700E0FDA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B7D47792272B84700E0FDA0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B2343AD229411590033A9BC /* SQLite.framework in Frameworks */,
 				7B23436B2293A3420033A9BC /* FirebaseCore.framework in Frameworks */,
 				7B23436D2293A3420033A9BC /* FirebaseDatabase.framework in Frameworks */,
 				7B23436F2293A3420033A9BC /* FirebaseInstanceID.framework in Frameworks */,
@@ -142,6 +149,7 @@
 		7B7D47762272B84700E0FDA0 /* APSupport */ = {
 			isa = PBXGroup;
 			children = (
+				7B2343722293DACB0033A9BC /* APSupport.db */,
 				7B7D47772272B84700E0FDA0 /* AppDelegate.swift */,
 				7B7D477B2272B84700E0FDA0 /* Main.storyboard */,
 				7B7D47812272B84900E0FDA0 /* Assets.xcassets */,
@@ -183,6 +191,9 @@
 		7B7D47AC2272C94700E0FDA0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B2343AC229411590033A9BC /* SQLite.framework */,
+				7B2343AA22940EB30033A9BC /* SQLite.framework */,
+				7B2343A422940DB50033A9BC /* SQLite.framework */,
 				7B23436A2293A3420033A9BC /* FirebaseCore.framework */,
 				7B23436C2293A3420033A9BC /* FirebaseDatabase.framework */,
 				7B23436E2293A3420033A9BC /* FirebaseInstanceID.framework */,
@@ -301,6 +312,7 @@
 				7B7D47852272B84900E0FDA0 /* LaunchScreen.storyboard in Resources */,
 				F2787843228C057F005975E8 /* GoogleService-Info.plist in Resources */,
 				7B7D47822272B84900E0FDA0 /* Assets.xcassets in Resources */,
+				7B2343732293DACB0033A9BC /* APSupport.db in Resources */,
 				7B7D477D2272B84700E0FDA0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

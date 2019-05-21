@@ -7,16 +7,35 @@
 //
 
 import UIKit
+import SQLite
+
 
 class FAQItemDetail: UIViewController {
 
     @IBOutlet weak var TitleLabel: UILabel!
     @IBOutlet weak var ContentLabel: UILabel!
+    @IBOutlet weak var buttonBookmark: UIButton!
+    @IBAction func buttonBookmark(_ sender: Any) {
+        print("Button Bookmark Clicked")
+        if articleBookmarked{
+            print("Bookmark Status: false")
+            articleBookmarked = false
+            
+            
+            buttonBookmark.setImage(UIImage(named: "Bookmark"), for: .normal)
+        } else {
+           print("Bookmark Status: true")
+            articleBookmarked = true
+            buttonBookmark.setImage(UIImage(named: "Bookmarked"), for: .normal)
+        }
+    }
     
     
     var selectedFAQItemListIndex: Int?
     var FAQItemListDict: [NSDictionary]?
-    
+    var articleBookmarked: Bool = false
+    var user = Profile()
+    var selectedFAQCategoryItem: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()

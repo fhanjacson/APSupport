@@ -12,5 +12,6 @@ target 'APSupport' do
  pod 'Alamofire-SwiftyJSON'
  pod 'Firebase/Analytics'
  pod 'Firebase/Database'
+# pod 'SQLite.swift', '~> 0.11.4'
 # pod 'RealmSwift'
 end

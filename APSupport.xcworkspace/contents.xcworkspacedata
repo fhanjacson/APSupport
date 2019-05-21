@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:APSupport/ExtraFramework/SQLite.swift-0.11.5/SQLite.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:APSupport.xcodeproj">
    </FileRef>
    <FileRef

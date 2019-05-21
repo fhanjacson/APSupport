@@ -52,7 +52,28 @@ class ViewController: UIViewController {
         ActivityIndicator.isHidden = true
         ActivityIndicator.hidesWhenStopped = true
         
+        textUsername.text = "TP045027"
+        textPassword.text = "POIPOI"
         
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            self.Firebasejson = value!
+            //print(JSON(self.Firebasejson))
+            self.FAQjson = self.Firebasejson["FAQ"] as! NSDictionary
+            self.Chatjson = self.Firebasejson["Chat"] as! NSDictionary
+            let jsonFAQjson = JSON(self.FAQjson)
+            for i in jsonFAQjson {
+                //print("#\(i.0)#")
+                self.FAQCategoryArray.append(i.0 as String)
+            } 
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -147,6 +168,11 @@ class ViewController: UIViewController {
                                                                 .validate()
                                                                 .responseJSON {
                                                                     (response) in
+                                                                    
+                                                                    print(response.request)
+                                                                    print(response.response)
+                                                                    print(response.data)
+                                                                    
                                                                     let json = JSON(response.result.value!)
                                                                     let fullname = json["serviceResponse"]["authenticationSuccess"]["attributes"]["displayName"][0].string
                                                                     
@@ -190,7 +216,6 @@ class ViewController: UIViewController {
         
         performSegue(withIdentifier: "toMainMenu", sender: self)
         
-        
     }
     
     
@@ -198,78 +223,68 @@ class ViewController: UIViewController {
         
         if segue.identifier == "toMainMenu" {
             print("#ToMainMenu")
-            if let NavController = segue.destination as? UINavigationController,
-                let MainMenu = NavController.viewControllers.first as? MainMenuViewController {
+            if let NavController = segue.destination as? UINavigationController {
+                //                let MainMenu = NavController.viewControllers.first as? MainMenuViewController {
+                
+                let TabController = NavController.viewControllers.first as! UITabBarController
+                let MainMenu = TabController.viewControllers![0] as! MainMenuViewController
+                let FAQCategory = TabController.viewControllers![1] as! FAQCategory
+                let ChatCategory = TabController.viewControllers![2] as! ChatCategory
+                
+                
+                
+                
                 MainMenu.user = user
                 print("Student Course: \(self.StudentCourse)")
                 MainMenu.StudentCourse = self.StudentCourse
                 MainMenu.buttonChatEnabled = true
-                var ref: DatabaseReference!
-                ref = Database.database().reference()
+                MainMenu.Firebasejson = self.Firebasejson
+                MainMenu.FAQjson = self.FAQjson
+                MainMenu.Chatjson = self.Chatjson
+                MainMenu.FAQCategoryArray = self.FAQCategoryArray
                 
-                ref.observeSingleEvent(of: .value, with: { (snapshot) in
-                    // Get user value
-                    let value = snapshot.value as? NSDictionary
-                    self.Firebasejson = value!
-                    //print(JSON(self.Firebasejson))
-                    self.FAQjson = self.Firebasejson["FAQ"] as! NSDictionary
-                    
-                    self.Chatjson = self.Firebasejson["Chat"] as! NSDictionary
-                    //print("faq array count: \(self.FAQjson.count)")
-                    //print("chat array count: \(self.Chatjson.count)")
-                    MainMenu.Firebasejson = self.Firebasejson
-                    MainMenu.FAQjson = self.FAQjson
-                    MainMenu.Chatjson = self.Chatjson
-                    
-                    //print("PLS WORK PLS: \(self.FAQjson)")
-                    let jsonFAQjson = JSON(self.FAQjson)
-                    for i in jsonFAQjson {
-                        //print("#\(i.0)#")
-                        self.FAQCategoryArray.append(i.0 as String)
-                    }
-                    MainMenu.FAQCategoryArray = self.FAQCategoryArray
-                    // ...
-                }) { (error) in
-                    print(error.localizedDescription)
-                }
+                FAQCategory.FAQjson = self.FAQjson
+                FAQCategory.FAQCategoryArray = self.FAQCategoryArray
+                FAQCategory.user = user
+        
             }
         }
         if segue.identifier == "toMainMenuNoLogin" {
             print("#ToMainMenuNoLogin")
             
-            if let NavController = segue.destination as? UINavigationController,
-                let MainMenu = NavController.viewControllers.first as? MainMenuViewController {
-                MainMenu.buttonChatEnabled = false
-                MainMenu.user = Profile()
-                
-                var ref: DatabaseReference!
-                ref = Database.database().reference()
-                
-                ref.observeSingleEvent(of: .value, with: { (snapshot) in
-                    // Get user value
-                    let value = snapshot.value as? NSDictionary
-                    self.Firebasejson = value!
-                    print(JSON(self.Firebasejson))
-                    self.FAQjson = self.Firebasejson["FAQ"] as! NSDictionary
-                    self.Chatjson = self.Firebasejson["Chat"] as! NSDictionary
-                    print("faq array count: \(self.FAQjson.count)")
-                    print("chat array count: \(self.Chatjson.count)")
-                    MainMenu.Firebasejson = self.Firebasejson
-                    MainMenu.FAQjson = self.FAQjson
-                    MainMenu.Chatjson = self.Chatjson
-                    let jsonFAQjson = JSON(self.FAQjson)
-                    for i in jsonFAQjson {
-                        print("#\(i.0)#")
-                        self.FAQCategoryArray.append(i.0 as String)
-                    }
-                    MainMenu.FAQCategoryArray = self.FAQCategoryArray
-                    // ...
-                }) { (error) in
-                    print(error.localizedDescription)
-                }
-                
-                
-            }
+            //            if let NavController = segue.destination as? UINavigationController,
+            //                let MainMenu = NavController.viewControllers.first as? MainMenuViewController {
+            //                MainMenu.buttonChatEnabled = false
+            //                MainMenu.user = Profile()
+            //
+            //                var ref: DatabaseReference!
+            //                ref = Database.database().reference()
+            //
+            //                ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            //                    // Get user value
+            //                    let value = snapshot.value as? NSDictionary
+            //                    self.Firebasejson = value!
+            //                    print(JSON(self.Firebasejson))
+            //                    self.FAQjson = self.Firebasejson["FAQ"] as! NSDictionary
+            //                    self.Chatjson = self.Firebasejson["Chat"] as! NSDictionary
+            //                    print("faq array count: \(self.FAQjson.count)")
+            //                    print("chat array count: \(self.Chatjson.count)")
+            //                    MainMenu.Firebasejson = self.Firebasejson
+            //                    MainMenu.FAQjson = self.FAQjson
+            //                    MainMenu.Chatjson = self.Chatjson
+            //                    let jsonFAQjson = JSON(self.FAQjson)
+            //                    for i in jsonFAQjson {
+            //                        print("#\(i.0)#")
+            //                        self.FAQCategoryArray.append(i.0 as String)
+            //                    }
+            //                    MainMenu.FAQCategoryArray = self.FAQCategoryArray
+            //                    // ...
+            //                }) { (error) in
+            //                    print(error.localizedDescription)
+            //                }
+            //
+            //
+            //            }
             
         }
         

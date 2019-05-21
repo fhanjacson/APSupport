@@ -16,6 +16,8 @@ class FAQItemList: UITableViewController {
     var selectedFAQCategory: String?
     var selectedFAQItemListIndex: Int?
     var FAQItemListDict: [NSDictionary]?
+    var user = Profile()
+    var selectedFAQCategoryItem: String = ""
     
     
     override func viewDidLoad() {
@@ -129,6 +131,8 @@ class FAQItemList: UITableViewController {
             if let FAQItemDetail = segue.destination as? FAQItemDetail {
                     FAQItemDetail.selectedFAQItemListIndex = selectedFAQItemListIndex
                     FAQItemDetail.FAQItemListDict = FAQItemListDict
+                    FAQItemDetail.user = user
+                FAQItemDetail.selectedFAQCategoryItem = selectedFAQCategoryItem
             }
         }
             

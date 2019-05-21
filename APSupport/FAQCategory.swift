@@ -23,7 +23,7 @@ class FAQCategory: UITableViewController {
         super.viewDidLoad()
         print("")
         print("#FAQCategory")
-        print(FAQjson)
+        //print(FAQjson)
         FAQCategory_Table.dataSource = self
         FAQCategory_Table.delegate = self
         FAQCategory_Table.register(UITableViewCell.self, forCellReuseIdentifier: "FAQCategoryCell")
@@ -130,7 +130,8 @@ class FAQCategory: UITableViewController {
             if let FAQItemList = segue.destination as? FAQItemList {
                 print(FAQjson[selectedFAQCategoryItem])
                 FAQItemList.FAQItemListDict = FAQjson[selectedFAQCategoryItem] as? [NSDictionary]
-                
+                FAQItemList.selectedFAQCategoryItem = selectedFAQCategoryItem
+                FAQItemList.user = user
                 
                 
             }

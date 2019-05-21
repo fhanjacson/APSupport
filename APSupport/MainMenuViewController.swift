@@ -12,10 +12,10 @@ import SwiftyJSON
 
 class MainMenuViewController: UIViewController {
     @IBAction func buttonFAQ(_ sender: Any) {
-        performSegue(withIdentifier: "toFAQCategory", sender: self)
+        //performSegue(withIdentifier: "toFAQCategory", sender: self)
     }
     @IBAction func buttonChat(_ sender: Any) {
-        performSegue(withIdentifier: "toChatCategory", sender: self)
+        //performSegue(withIdentifier: "toChatCategory", sender: self)
     }
     @IBOutlet weak var welcomeLabel: UILabel!
    
@@ -101,12 +101,6 @@ class MainMenuViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "toFAQCategory" {
-            if let FAQCategory = segue.destination as? FAQCategory {
-                FAQCategory.FAQjson = FAQjson
-                FAQCategory.FAQCategoryArray = FAQCategoryArray
-            }
-            
-            
             
         }
     }
