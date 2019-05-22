@@ -29,6 +29,7 @@
 		7BDDA843228FCBBB00FEFBFD /* ChatCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDA842228FCBBB00FEFBFD /* ChatCategory.swift */; };
 		7BDDA845228FCBEA00FEFBFD /* ChatDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDA844228FCBEA00FEFBFD /* ChatDetail.swift */; };
 		7BDDA849228FF23200FEFBFD /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDA848228FF23200FEFBFD /* NavigationViewController.swift */; };
+		F264C14622953BCB0025B1EB /* FirebaseFirestore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F264C14522953BCB0025B1EB /* FirebaseFirestore.framework */; };
 		F2787843228C057F005975E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2787842228C057F005975E8 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +83,7 @@
 		7BDDA844228FCBEA00FEFBFD /* ChatDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetail.swift; sourceTree = "<group>"; };
 		7BDDA848228FF23200FEFBFD /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		A9EE02330EBB9BDBD1F90220 /* Pods-APSupport.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APSupport.release.xcconfig"; path = "Pods/Target Support Files/Pods-APSupport/Pods-APSupport.release.xcconfig"; sourceTree = "<group>"; };
+		F264C14522953BCB0025B1EB /* FirebaseFirestore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseFirestore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2787842228C057F005975E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F264C14622953BCB0025B1EB /* FirebaseFirestore.framework in Frameworks */,
 				7B2343AD229411590033A9BC /* SQLite.framework in Frameworks */,
 				7B23436B2293A3420033A9BC /* FirebaseCore.framework in Frameworks */,
 				7B23436D2293A3420033A9BC /* FirebaseDatabase.framework in Frameworks */,
@@ -191,6 +194,7 @@
 		7B7D47AC2272C94700E0FDA0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F264C14522953BCB0025B1EB /* FirebaseFirestore.framework */,
 				7B2343AC229411590033A9BC /* SQLite.framework */,
 				7B2343AA22940EB30033A9BC /* SQLite.framework */,
 				7B2343A422940DB50033A9BC /* SQLite.framework */,
@@ -358,11 +362,15 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-APSupport/Pods-APSupport-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-APSupport/Pods-APSupport-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-SwiftyJSON/Alamofire_SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -370,14 +378,18 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire_SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-APSupport/Pods-APSupport-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-APSupport/Pods-APSupport-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

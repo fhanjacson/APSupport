@@ -45,7 +45,11 @@ class ViewController: UIViewController {
     var CasTicket : String = ""
     var StudentCourse = [NSDictionary]()
     var StudentProfile = NSDictionary()
+    var ChatCategoryList = [String]()
     var isAuthenticated : Bool = false
+    
+    var ChatObject = [NSDictionary]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +78,8 @@ class ViewController: UIViewController {
         }) { (error) in
             print(error.localizedDescription)
         }
+        //getChatCategory()
+        test2()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -218,10 +224,54 @@ class ViewController: UIViewController {
         
     }
     
+    func test() {
+        let db = Firestore.firestore()
+        var data: [String:String] = [:]
+        for i in 1...10 {
+            print(i)
+            
+            
+            data = [
+                "message" : ("Hello World" + String(i)),
+                "username" : ("TP04521" + String(i)),
+                "timestamp" : ((String(125123 + i)))]
+                    
+                    db.collection("OnlineChat").document("General").collection("messages").document(String(i)).setData(data) { err in
+                    if let err = err {
+                    print("Error writing document: \(err)")
+                    } else {
+                    print("Document successfully written!")
+                    }
+            }
+            
+        }
+    }
+    
+    
+    func test2() {
+        let db = Firestore.firestore()
+        db.collection("OnlineChat").document("General").collection("messages").addSnapshotListener {
+            (querySnapshot, err) in
+            
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    self.ChatObject.append(document.data() as NSDictionary)
+                }
+                print(self.ChatObject)
+                //print(JSON(self.ChatObject))
+                
+                
+            }
+        }
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "toMainMenu" {
+            
             print("#ToMainMenu")
             if let NavController = segue.destination as? UINavigationController {
                 //                let MainMenu = NavController.viewControllers.first as? MainMenuViewController {
@@ -230,9 +280,6 @@ class ViewController: UIViewController {
                 let MainMenu = TabController.viewControllers![0] as! MainMenuViewController
                 let FAQCategory = TabController.viewControllers![1] as! FAQCategory
                 let ChatCategory = TabController.viewControllers![2] as! ChatCategory
-                
-                
-                
                 
                 MainMenu.user = user
                 print("Student Course: \(self.StudentCourse)")
@@ -246,7 +293,11 @@ class ViewController: UIViewController {
                 FAQCategory.FAQjson = self.FAQjson
                 FAQCategory.FAQCategoryArray = self.FAQCategoryArray
                 FAQCategory.user = user
-        
+                
+                ChatCategory.ChatCategoryList = self.ChatCategoryList
+                ChatCategory.tempvar = "abc"
+                ChatCategory.user = self.user
+                print("End of #ViewController")
             }
         }
         if segue.identifier == "toMainMenuNoLogin" {

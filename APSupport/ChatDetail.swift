@@ -7,19 +7,107 @@
 //
 
 import UIKit
+import Firebase
 
-class ChatDetail: UITableViewController {
-
+class ChatDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var textMessage: UITextField!
+    var selectedChatCategoryString = ""
+    var ChatObject = [NSDictionary]()
+    //var items: [String] = ["Swift1", "Swift2", "Swift3"]
+    var user = Profile()
+    
+    
+    @IBOutlet weak var ChatDetail_Table: UITableView!
+    @IBAction func buttonSendMessage_Click(_ sender: Any) {
+        if textMessage.text?.isEmpty ?? true {
+            
+        } else {
+        createNewMessage(message: textMessage.text!, username: user.Username, fullname: user.FullName)
+        }
+    }
+    
+    func createNewMessage(message: String, username: String, fullname: String) {
+        let db = Firestore.firestore()
+        let data = [
+            "message" : message,
+            "username" : username,
+            "timestamp" : Timestamp(date: Date()),
+            "fullname" : fullname] as [String : Any]
+        
+        db.collection("OnlineChat").document("General").collection("messages").document().setData(data) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+    }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("#ChatDetail")
+        print("Chat Topic: \(selectedChatCategoryString)")
+        
+        
+        self.ChatDetail_Table.register(UITableViewCell.self, forCellReuseIdentifier: "ChatDetailCell")
+        getChatDetail()
+        print("ChatObject: \(ChatObject)")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        let db = Firestore.firestore()
+        db.collection("OnlineChat").document(selectedChatCategoryString).collection("messages").addSnapshotListener {
+            (querySnapshot, err) in
+            
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    self.ChatObject.append(document.data() as NSDictionary)
+                }
+                print(self.ChatObject)
+                self.ChatDetail_Table.reloadData()
+                
+                
+            }
+        }
+        
+        
     }
 
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        ChatDetail_Table.reloadData()
+        
+    }
+    
+    func getChatDetail() {
+        let db = Firestore.firestore()
+        db.collection("OnlineChat").document(selectedChatCategoryString).collection("messages").addSnapshotListener {
+            (querySnapshot, err) in
+            
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                self.ChatObject.removeAll()
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    self.ChatObject.append(document.data() as NSDictionary)
+                }
+                self.ChatDetail_Table.reloadData()
+                
+                
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -27,25 +115,36 @@ class ChatDetail: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+      func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Chat: " + selectedChatCategoryString
+    }
+    
+      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return ChatObject.count
+        //return self.items.count
     }
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+    
+      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatDetailCell", for: indexPath)
 
+        cell.textLabel?.text = ChatObject[indexPath.item]["message"] as? String
         // Configure the cell...
-
+        //cell.textLabel?.text = self.items[indexPath.item]
         return cell
     }
-    */
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Selected Index: \(self.ChatObject[indexPath.item])")
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.

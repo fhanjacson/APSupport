@@ -23,10 +23,10 @@ class FAQCategory: UITableViewController {
         super.viewDidLoad()
         print("")
         print("#FAQCategory")
-        //print(FAQjson)
         FAQCategory_Table.dataSource = self
         FAQCategory_Table.delegate = self
         FAQCategory_Table.register(UITableViewCell.self, forCellReuseIdentifier: "FAQCategoryCell")
+        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

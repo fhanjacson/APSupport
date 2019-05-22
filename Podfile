@@ -1,3 +1,4 @@
+
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
@@ -12,6 +13,7 @@ target 'APSupport' do
  pod 'Alamofire-SwiftyJSON'
  pod 'Firebase/Analytics'
  pod 'Firebase/Database'
+ pod 'Firebase/Firestore'
 # pod 'SQLite.swift', '~> 0.11.4'
 # pod 'RealmSwift'
 end

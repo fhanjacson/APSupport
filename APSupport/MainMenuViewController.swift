@@ -42,7 +42,7 @@ class MainMenuViewController: UIViewController {
         let StudentIntake : String! = StudentCourse[0]["INTAKE_CODE"] as! String
         
         //print("PLS WORK PLS: \(self.FAQjson)")
-        print("Student Course: \(self.StudentCourse)")
+        //print("Student Course: \(self.StudentCourse)")
         welcomeLabel.text = "Welcome, \(user.FullName)"
         IntakeLabel.text = "Intake: \(StudentIntake!)"
         buttonChatOutlet.isEnabled = buttonChatEnabled
