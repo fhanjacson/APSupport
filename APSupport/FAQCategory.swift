@@ -128,7 +128,7 @@ class FAQCategory: UITableViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "toFAQItemList" {
             if let FAQItemList = segue.destination as? FAQItemList {
-                print(FAQjson[selectedFAQCategoryItem])
+                //print(FAQjson[selectedFAQCategoryItem])
                 FAQItemList.FAQItemListDict = FAQjson[selectedFAQCategoryItem] as? [NSDictionary]
                 FAQItemList.selectedFAQCategoryItem = selectedFAQCategoryItem
                 FAQItemList.user = user

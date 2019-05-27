@@ -1,80 +1,74 @@
 //
-//  ChatCategory.swift
+//  FavouriteFAQ.swift
 //  APSupport
 //
-//  Created by localadmin on 18/05/2019.
+//  Created by Jacson on 24/05/2019.
 //  Copyright © 2019 Fhan Jacson. All rights reserved.
 //
 
 import UIKit
 import Firebase
 
-class ChatCategory: UITableViewController {
-    
-    @IBOutlet var ChatCategory_Table: UITableView!
-    var ChatCategoryList = [String]()
-    var tempvar = ""
-    var selectedChatCategoryString = ""
-    var user = Profile()
+class FavouriteFAQ: UITableViewController {
 
+    @IBOutlet var FavouriteFAQ_Table: UITableView!
+    
+    
+    var FavouriteFAQItems = [NSDictionary]()
+    var FavouriteFAQCategory = [String]()
+    var FavouriteFAQIndex = [Int]()
+    var user = Profile()
+    var FAQjson: NSDictionary = NSDictionary()
+    var selectedFavIndex : Int?
+    var selectedCategoryString: String = ""
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("")
-        print("#ChatCategory")
-        print("tempvar: \(tempvar)")
-        print("ChatCategoryList: \(self.ChatCategoryList)")
-        ChatCategory_Table.dataSource = self
-        ChatCategory_Table.delegate = self
-        ChatCategory_Table.register(UITableViewCell.self, forCellReuseIdentifier: "ChatCategoryCell")
-        getChatCategory()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        ChatCategory_Table.reloadData()
-        print("ChatCategoryList: \(self.ChatCategoryList)")
-    }
-//        db.collection("OnlineChat").document("General").collection("Messages").document("1")
-//            .addSnapshotListener { documentSnapshot, error in
-//                guard let document = documentSnapshot else {
-//                    print("Error fetching document: \(error!)")
-//                    return
-//                }
-//                guard let data = document.data() else {
-//                    print("Document data was empty.")
-//                    return
-//                }
-//                print("Current data: \(data)")
-//        }
+        print("#FavFAQ")
+        FavouriteFAQ_Table.delegate = self
+        FavouriteFAQ_Table.dataSource = self
+        FavouriteFAQ_Table.register(UITableViewCell.self, forCellReuseIdentifier: "FavouriteFAQCell")
+        print("FavFAQItems: \(FavouriteFAQItems)")
+        getFavouriteFAQ()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-  
+    }
     
-    func getChatCategory() {
+    func getFavouriteFAQ() {
         let db = Firestore.firestore()
-        db.collection("OnlineChat").addSnapshotListener {
+        db.collection("Favourite").document(user.Username).collection("FAQ").addSnapshotListener {
             (querySnapshot, err) in
             
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                self.ChatCategoryList.removeAll()
+                self.FavouriteFAQItems.removeAll()
+                var i = 0
                 for document in querySnapshot!.documents {
                     print("\(document.documentID) => \(document.data())")
                     
-                    self.ChatCategoryList.append(document.documentID as String)
-                    print("ChatCategoryList: \(self.ChatCategoryList)")                    
+                    self.FavouriteFAQItems.append(document.data() as NSDictionary)
+                    let asd = self.FavouriteFAQItems[i]["Category"] as! String
+                    let sdf = self.FavouriteFAQItems[i]["Index"] as! Int
+                    self.FavouriteFAQCategory.append(asd)
+                    self.FavouriteFAQIndex.append(sdf)
+                    i = i + 1
                 }
-                self.ChatCategory_Table.reloadData()
-                
+                self.FavouriteFAQ_Table.reloadData()
+                print("FavFAQItems: \(self.FavouriteFAQItems)")
                 
             }
         }
+        
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -87,31 +81,33 @@ class ChatCategory: UITableViewController {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Chat Category"
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.ChatCategoryList.count
+        return FavouriteFAQItems.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavouriteFAQCell", for: indexPath)
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCategoryCell", for: indexPath)
+        let category = FavouriteFAQCategory[indexPath.item] as String
+        let index = FavouriteFAQIndex[indexPath.item] as Int
+        let FAQFilterCategory = FAQjson[category] as! [NSDictionary]
+        let FAQFilterCategoryIndex = FAQFilterCategory[index]
         
-        cell.textLabel?.text = self.ChatCategoryList[indexPath.item]
+        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.text = FAQFilterCategoryIndex["title"] as? String
         // Configure the cell...
 
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected: \(ChatCategoryList[indexPath.item])")
-        selectedChatCategoryString = ChatCategoryList[indexPath.item]
+        
+        selectedFavIndex = FavouriteFAQItems[indexPath.item]["Index"] as! Int?
+        selectedCategoryString = FavouriteFAQCategory[indexPath.item] as String
         tableView.deselectRow(at: indexPath, animated: true)
-        performSegue(withIdentifier: "toChatDetail", sender: self)
+        performSegue(withIdentifier: "toFavDetail", sender: self)
     }
     
 
@@ -155,16 +151,16 @@ class ChatCategory: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-
-        if (segue.identifier == "toChatDetail") {
-            if let ChatDetailController = segue.destination as? ChatDetail {
-                ChatDetailController.selectedChatCategoryString = self.selectedChatCategoryString
-                ChatDetailController.user = self.user
+        if segue.identifier == "toFavDetail" {
+            if let FavDetail = segue.destination as? FavouriteDetail {
+                FavDetail.FavouriteFAQIndex = self.FavouriteFAQIndex
+                FavDetail.FAQjson = FAQjson
+                FavDetail.user = user
+                FavDetail.selectedFavIndex = selectedFavIndex
+                FavDetail.selectedCategoryString = self.selectedCategoryString
+                
             }
         }
-        
     }
     
 

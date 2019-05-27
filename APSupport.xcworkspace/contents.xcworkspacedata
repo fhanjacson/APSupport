@@ -7,7 +7,4 @@
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:APSupport/ExtraFramework/SQLite.swift-0.11.5/SQLite.xcodeproj">
-   </FileRef>
 </Workspace>

@@ -14,6 +14,7 @@ target 'APSupport' do
  pod 'Firebase/Analytics'
  pod 'Firebase/Database'
  pod 'Firebase/Firestore'
+# pod 'PopupDialog', '~> 0.9.2'
 # pod 'SQLite.swift', '~> 0.11.4'
 # pod 'RealmSwift'
 end

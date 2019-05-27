@@ -9,19 +9,17 @@
 import UIKit
 import Firebase
 import SwiftyJSON
+import Alamofire
+import Alamofire_SwiftyJSON
 
 class MainMenuViewController: UIViewController {
-    @IBAction func buttonFAQ(_ sender: Any) {
-        //performSegue(withIdentifier: "toFAQCategory", sender: self)
-    }
-    @IBAction func buttonChat(_ sender: Any) {
-        //performSegue(withIdentifier: "toChatCategory", sender: self)
+    @IBAction func buttonLogOut(_ sender: Any) {
+        performSegue(withIdentifier: "ToLoginPage", sender: self)
     }
     @IBOutlet weak var welcomeLabel: UILabel!
-   
     @IBOutlet weak var IntakeLabel: UILabel!
-    @IBOutlet weak var buttonChatOutlet: UIButton!
-    
+    @IBOutlet weak var GuestLabel: UILabel!
+    @IBOutlet weak var imageProfilePicture: UIImageView!
     var user = Profile()
     var Firebasejson = NSDictionary()
     var FAQjson = NSDictionary()
@@ -30,68 +28,59 @@ class MainMenuViewController: UIViewController {
     var StudentCourse = [NSDictionary]()
     
     
-    var buttonChatEnabled : Bool = false
-    
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         print("")
         print("#MainMenuViewController")
         
-        let StudentIntake : String! = StudentCourse[0]["INTAKE_CODE"] as! String
+        welcomeLabel.isHidden = true
+        IntakeLabel.isHidden = true
+        GuestLabel.numberOfLines = 0
+        GuestLabel.text = "Guest doesnt have dashboard. Login with your APKey to view your dashboard"
         
-        //print("PLS WORK PLS: \(self.FAQjson)")
-        //print("Student Course: \(self.StudentCourse)")
-        welcomeLabel.text = "Welcome, \(user.FullName)"
-        IntakeLabel.text = "Intake: \(StudentIntake!)"
-        buttonChatOutlet.isEnabled = buttonChatEnabled
-        
-        
-//
-//        print("UserName: \(user.Username)")
-//        print("FullName: \(user.FullName)")
-//        print("MainTicket: \(user.MainTicket)")
-//
-        
-        //print("FAQjson[0]: \(FAQjson[0])")
-        
-        
-        // Do any additional setup after loading the view.
+        welcomeLabel.numberOfLines = 0
+        if user.FullName != "Guest" {
+            GuestLabel.isHidden = true
+            welcomeLabel.isHidden = false
+            IntakeLabel.isHidden = false
+            let StudentIntake : String! = StudentCourse[0]["INTAKE_CODE"] as! String
+            welcomeLabel.text = "Name: \(user.FullName)"
+            IntakeLabel.text = "Intake: \(StudentIntake!)"
+            getProfilePicture()
+        }
+
     }
     
-//    func getFAQCategory() {
-//        print("getting FAQ article...")
-//        var ref: DatabaseReference!
-//        ref = Database.database().reference()
-//
-//        let chattest = ["id":"3",
-//                        "message": "Hello World",
-//                        "datetime":"2019-05-15 14:33:33",
-//                        "username" : "TP045027"]
-//
-////        ref.child("Chat").child("General").child("1").setValue(chattest)
-////
-////        ref.child("FAQ").observeSingleEvent(of: .value, with: { (snapshot) in
-////            // Get user value
-////            let value = snapshot.value as? NSDictionary
-////            let valuejson = JSON(value!)
-////            for i in valuejson {
-////                print(i.0)
-////            }
-////            //print(valuejson["APCard"]["0"]["content"])
-////
-////
-////
-////            // ...
-////        }) { (error) in
-////            print(error.localizedDescription)
-////        }
-//    }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    func getProfilePicture () {
+        //STUDENT PROFILE PICTURE
+        Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/v1/tickets/" + user.MainTicket + "?service=https://api.apiit.edu.my/student/photo")!, method: .post, headers:APSupport.headers)
+            .validate()
+            .responseJSON {
+                (response) in
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    print("Data: \(utf8Text)") // original server data as UTF8 string
+                    let StudentProfilePictureTicket = utf8Text;
+                    if (StudentProfilePictureTicket.hasPrefix("ST")) {
+                        Alamofire.request(URL(string: "https://api.apiit.edu.my/student/photo?ticket=" + StudentProfilePictureTicket)!, method: .get, headers:APSupport.headers)
+                            .validate()
+                            .responseJSON {
+                                (response) in
+                                let json = JSON(response.result.value!)
+                                let ProfilePictureData = NSData(base64Encoded: json["base64_photo"].string!, options: NSData.Base64DecodingOptions(rawValue: 0))
+                                let ProfileImage: UIImage = UIImage(data: ProfilePictureData! as Data)!
+                                self.imageProfilePicture.image = ProfileImage
+                        }
+                    }
+                }
+        }
     }
     
     

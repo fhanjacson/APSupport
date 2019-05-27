@@ -13,7 +13,6 @@
 		7B23436D2293A3420033A9BC /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B23436C2293A3420033A9BC /* FirebaseDatabase.framework */; };
 		7B23436F2293A3420033A9BC /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B23436E2293A3420033A9BC /* FirebaseInstanceID.framework */; };
 		7B2343732293DACB0033A9BC /* APSupport.db in Resources */ = {isa = PBXBuildFile; fileRef = 7B2343722293DACB0033A9BC /* APSupport.db */; };
-		7B2343AD229411590033A9BC /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B2343AC229411590033A9BC /* SQLite.framework */; };
 		7B7D47782272B84700E0FDA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D47772272B84700E0FDA0 /* AppDelegate.swift */; };
 		7B7D477A2272B84700E0FDA0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D47792272B84700E0FDA0 /* ViewController.swift */; };
 		7B7D477D2272B84700E0FDA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7D477B2272B84700E0FDA0 /* Main.storyboard */; };
@@ -31,6 +30,9 @@
 		7BDDA849228FF23200FEFBFD /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDA848228FF23200FEFBFD /* NavigationViewController.swift */; };
 		F264C14622953BCB0025B1EB /* FirebaseFirestore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F264C14522953BCB0025B1EB /* FirebaseFirestore.framework */; };
 		F2787843228C057F005975E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2787842228C057F005975E8 /* GoogleService-Info.plist */; };
+		F29C73202296DCB300CFF6F2 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29C731F2296DCB300CFF6F2 /* ChatCell.swift */; };
+		F2E6DD6D22977CA80073AE65 /* FavouriteFAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6DD6C22977CA80073AE65 /* FavouriteFAQ.swift */; };
+		F2E6DD6F22978FB90073AE65 /* FavouriteDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6DD6E22978FB90073AE65 /* FavouriteDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,9 @@
 		A9EE02330EBB9BDBD1F90220 /* Pods-APSupport.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APSupport.release.xcconfig"; path = "Pods/Target Support Files/Pods-APSupport/Pods-APSupport.release.xcconfig"; sourceTree = "<group>"; };
 		F264C14522953BCB0025B1EB /* FirebaseFirestore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseFirestore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2787842228C057F005975E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F29C731F2296DCB300CFF6F2 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		F2E6DD6C22977CA80073AE65 /* FavouriteFAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteFAQ.swift; sourceTree = "<group>"; };
+		F2E6DD6E22978FB90073AE65 /* FavouriteDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +98,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F264C14622953BCB0025B1EB /* FirebaseFirestore.framework in Frameworks */,
-				7B2343AD229411590033A9BC /* SQLite.framework in Frameworks */,
 				7B23436B2293A3420033A9BC /* FirebaseCore.framework in Frameworks */,
 				7B23436D2293A3420033A9BC /* FirebaseDatabase.framework in Frameworks */,
 				7B23436F2293A3420033A9BC /* FirebaseInstanceID.framework in Frameworks */,
@@ -168,6 +172,9 @@
 				7BDDA840228FCB8800FEFBFD /* FAQItemDetail.swift */,
 				7BDDA842228FCBBB00FEFBFD /* ChatCategory.swift */,
 				7BDDA844228FCBEA00FEFBFD /* ChatDetail.swift */,
+				F29C731F2296DCB300CFF6F2 /* ChatCell.swift */,
+				F2E6DD6C22977CA80073AE65 /* FavouriteFAQ.swift */,
+				F2E6DD6E22978FB90073AE65 /* FavouriteDetail.swift */,
 				7BDDA848228FF23200FEFBFD /* NavigationViewController.swift */,
 			);
 			path = APSupport;
@@ -404,9 +411,12 @@
 				7B7D47802272B84700E0FDA0 /* APSupport.xcdatamodeld in Sources */,
 				7B101360228EC16E00CBFE89 /* MainMenuViewController.swift in Sources */,
 				7BDDA82B228FB9E700FEFBFD /* APSupport.swift in Sources */,
+				F29C73202296DCB300CFF6F2 /* ChatCell.swift in Sources */,
+				F2E6DD6D22977CA80073AE65 /* FavouriteFAQ.swift in Sources */,
 				7B7D477A2272B84700E0FDA0 /* ViewController.swift in Sources */,
 				7BDDA845228FCBEA00FEFBFD /* ChatDetail.swift in Sources */,
 				7B7D47782272B84700E0FDA0 /* AppDelegate.swift in Sources */,
+				F2E6DD6F22978FB90073AE65 /* FavouriteDetail.swift in Sources */,
 				7BDDA841228FCB8800FEFBFD /* FAQItemDetail.swift in Sources */,
 				7BDDA83D228FCAE200FEFBFD /* FAQItemList.swift in Sources */,
 				7BDDA843228FCBBB00FEFBFD /* ChatCategory.swift in Sources */,

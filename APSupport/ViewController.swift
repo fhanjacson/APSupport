@@ -18,7 +18,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var textPassword: UITextField!
     @IBAction func buttonLogin(_ sender: Any) {
         if ((textUsername.text != nil) && (textPassword.text != nil)){
-            
             let username = textUsername.text
             let password = textPassword.text
             APKeyLogin(username: username!, password: password!, CompleteLogin: {
@@ -33,7 +32,7 @@ class ViewController: UIViewController {
     let authorName = "Fhan Jacson";
     
     @IBAction func buttonSkipLogin(_ sender: UIButton) {
-        //performSegue(withIdentifier: "toMainMenuNoLogin", sender: self)
+        performSegue(withIdentifier: "toMainMenuNoLogin", sender: self)
     }
     
     var user = Profile()
@@ -47,12 +46,14 @@ class ViewController: UIViewController {
     var StudentProfile = NSDictionary()
     var ChatCategoryList = [String]()
     var isAuthenticated : Bool = false
+    var ProfilePicture = UIImage()
     
     var ChatObject = [NSDictionary]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.setHidesBackButton(true, animated: true)
         ActivityIndicator.isHidden = true
         ActivityIndicator.hidesWhenStopped = true
         
@@ -79,7 +80,7 @@ class ViewController: UIViewController {
             print(error.localizedDescription)
         }
         //getChatCategory()
-        test2()
+        getChatObject()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -99,246 +100,214 @@ class ViewController: UIViewController {
             "password" : password
         ]
         
-        let headers: HTTPHeaders = [
-            "Accept":"application/json, text/plain, */*",
-            "Content-type":"application/x-www-form-urlencoded",
-            "Origin":"https://apspace.apu.edu.my",
-            "Referer":"https://apspace.apu.edu.my/",
-            "User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36"
-        ]
-        
-        //Alamofire.request(URL(string: "https://postman-echo.com/post")!, method: .post, parameters: parameters)
-        
         //MAIN TICKET
-        Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/v1/tickets")!, method: .post, parameters:parameters, headers:headers)
+        
+        Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/v1/tickets")!, method: .post, parameters:parameters, headers: APSupport.headers)
             .validate()
             .response { (response) in
-                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                    print("Data: \(utf8Text)") // original server data as UTF8 string
-                    self.MainTicket = utf8Text;
-                    if (self.MainTicket.hasPrefix("TGT")) {
-                        
-                        //CAS
-                        Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/v1/tickets/" + self.MainTicket + "?service=https://cas.apiit.edu.my")!, method: .post, headers:headers)
-                            .validate()
-                            .response { (response) in
-                                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                                    print("Data: \(utf8Text)") // original server data as UTF8 string
-                                    self.CasTicket = utf8Text
-                                    
-                                    //STUDENT COURSE
-                                    Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/v1/tickets/" + self.MainTicket + "?service=https://api.apiit.edu.my/student/courses")!, method: .post, headers:headers)
-                                        .validate()
-                                        .responseJSON {
-                                            (response) in
-                                            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                                                print("Data: \(utf8Text)") // original server data as UTF8 string
-                                                let StudentCourseTicket = utf8Text;
-                                                if (StudentCourseTicket.hasPrefix("ST")) {
-                                                    Alamofire.request(URL(string: "https://api.apiit.edu.my/student/courses?ticket=" + StudentCourseTicket)!, method: .get, headers:headers)
-                                                        .validate()
-                                                        .responseJSON {
-                                                            (response) in
-                                                            let json = JSON(response.result.value!)
-                                                            self.StudentCourse = json.arrayObject as! [NSDictionary]
-                                                            print("Student Course: \(self.StudentCourse)")
-                                                            
-                                                            //STUDENT PROFILE
-                                                            Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/v1/tickets/" + self.MainTicket + "?service=https://api.apiit.edu.my/student/profile")!, method: .post, headers:headers)
-                                                                .validate()
-                                                                .responseJSON {
-                                                                    (response) in
-                                                                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                                                                        print("Data: \(utf8Text)") // original server data as UTF8 string
-                                                                        let StudentProfileTicket = utf8Text;
-                                                                        if (StudentCourseTicket.hasPrefix("ST")) {
-                                                                            Alamofire.request(URL(string: "https://api.apiit.edu.my/student/profile?ticket=" + StudentProfileTicket)!, method: .get, headers:headers)
-                                                                                .validate()
-                                                                                .responseJSON {
-                                                                                    (response) in
-                                                                                    let json = JSON(response.result.value!)
-                                                                                    self.StudentProfile = json.dictionary as! NSDictionary
-                                                                                    print("Student Profile: \(self.StudentProfile)")
-                                                                                    
+                if(response.error == nil) {
+                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                        print("MAIN TICKET: \(utf8Text)") // original server data as UTF8 string
+                        self.MainTicket = utf8Text;
+                        if (self.MainTicket.hasPrefix("TGT")) {
+                            
+                            //CAS
+                            Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/v1/tickets/" + self.MainTicket + "?service=https://cas.apiit.edu.my")!, method: .post, headers:APSupport.headers)
+                                .validate()
+                                .response { (response) in
+                                    if (response.error == nil) {
+                                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                                        print("CAS TICKET: \(utf8Text)") // original server data as UTF8 string
+                                        self.CasTicket = utf8Text
+                                        
+                                        //STUDENT COURSE
+                                        Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/v1/tickets/" + self.MainTicket + "?service=https://api.apiit.edu.my/student/courses")!, method: .post, headers:APSupport.headers)
+                                            .validate()
+                                            .responseJSON {
+                                                (response) in
+                                                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                                                    print("STUDENT COURSE TICKET: \(utf8Text)") // original server data as UTF8 string
+                                                    let StudentCourseTicket = utf8Text;
+                                                    if (StudentCourseTicket.hasPrefix("ST")) {
+                                                        Alamofire.request(URL(string: "https://api.apiit.edu.my/student/courses?ticket=" + StudentCourseTicket)!, method: .get, headers:APSupport.headers)
+                                                            .validate()
+                                                            .responseJSON {
+                                                                (response) in
+                                                                let json = JSON(response.result.value!)
+                                                                self.StudentCourse = json.arrayObject as! [NSDictionary]
+                                                                //print("Student Course: \(self.StudentCourse)")
+                                                                
+                                                                //STUDENT PROFILE
+                                                                Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/v1/tickets/" + self.MainTicket + "?service=https://api.apiit.edu.my/student/profile")!, method: .post, headers:APSupport.headers)
+                                                                    .validate()
+                                                                    .responseJSON {
+                                                                        (response) in
+                                                                        //if (response.error == nil) {
+                                                                            //print(response.error)
+                                                                        print(response.request)
+                                                                        print(response.response)
+                                                                        print(response.error)
+                                                                        print(response.data)
+                                                                        
+                                                                        
+                                                                            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                                                                                print("PROFILE TICKET: \(utf8Text)") // original server data as UTF8 string
+                                                                                let StudentProfileTicket = utf8Text;
+                                                                                if (StudentCourseTicket.hasPrefix("ST")) {
+                                                                                    Alamofire.request(URL(string: "https://api.apiit.edu.my/student/profile?ticket=" + StudentProfileTicket)!, method: .get, headers:APSupport.headers)
+                                                                                        .validate()
+                                                                                        .responseJSON {
+                                                                                            (response) in
+                                                                                            //if (response.error == nil) {
+                                                                                                let json = JSON(response.result.value!)
+                                                                                                self.StudentProfile = json.dictionary! as NSDictionary
+                                                                                                //print("Student Profile: \(self.StudentProfile)")
+                                                                                                
+                                                                                                //CAS
+                                                                                                Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/p3/serviceValidate?format=json&service=https://cas.apiit.edu.my&ticket=" + self.CasTicket)!, method: .get, headers:APSupport.headers)
+                                                                                                    .validate()
+                                                                                                    .responseJSON {
+                                                                                                        (response) in
+                                                                                                        
+                                                                                                        let json = JSON(response.result.value!)
+                                                                                                        let fullname = json["serviceResponse"]["authenticationSuccess"]["attributes"]["displayName"][0].string
+                                                                                                        
+                                                                                                        let userprofile = Profile.init(fullname: fullname!, username: username, mainticket: self.MainTicket)
+                                                                                                        self.user = userprofile
+                                                                                                        self.isAuthenticated = true;
+                                                                                                        self.ActivityIndicator.stopAnimating()
+                                                                                                        CompleteLogin()
+                                                                                                }
+                                                                                                //END
+                                                                                                
+                                                                                            //}
+                                                                                    //else {
+                                                                                                //self.ActivityIndicator.stopAnimating()
+                                                                                                //self.present(APSupport.newAlert(title: "Error",message: "Something went wrong, check your internet connection"), animated: true)
+                                                                                            //}
+                                                                                    }
+                                                                                }
                                                                             }
-                                                                        }
-                                                                    }
-                                                            }
-                                                            //END
-                                                            
-                                                            
-                                                            
-                                                            
-                                                            //CAS
-                                                            Alamofire.request(URL(string: "https://cas.apiit.edu.my/cas/p3/serviceValidate?format=json&service=https://cas.apiit.edu.my&ticket=" + self.CasTicket)!, method: .get, headers:headers)
-                                                                .validate()
-                                                                .responseJSON {
-                                                                    (response) in
-                                                                    
-                                                                    print(response.request)
-                                                                    print(response.response)
-                                                                    print(response.data)
-                                                                    
-                                                                    let json = JSON(response.result.value!)
-                                                                    let fullname = json["serviceResponse"]["authenticationSuccess"]["attributes"]["displayName"][0].string
-                                                                    
-                                                                    let userprofile = Profile.init(fullname: fullname!, username: username, mainticket: self.MainTicket)
-                                                                    self.user = userprofile
-                                                                    self.isAuthenticated = true;
-                                                                    self.ActivityIndicator.stopAnimating()
-                                                                    CompleteLogin()
-                                                            }
-                                                            //END
-                                                            
-                                                            
-                                                            
+                                                                        //END
+                                                                }
+                                                        }
                                                     }
                                                 }
-                                            }
+                                                //END
+                                        }
                                     }
-                                    //END
-                                    
-                                    
-                                    
-                                    
-                                    
-                                }
-                                
+                                    } else {
+                                        self.ActivityIndicator.stopAnimating()
+                                        self.present(APSupport.newAlert(title: "Error",message: "Wrong Username or Password / Internet Problem"), animated: true)
+                            }
+                            }
+                            //END
+                            
+                        } else {
+                            self.ActivityIndicator.stopAnimating()
+                            self.present(APSupport.newAlert(title: "Error",message: "Something went wrong, check your internet connection"), animated: true)
                         }
                         
                     }
-                    //END
-                    
                 } else {
-                    print("Invalid Credential")
-                }
-                
+                    self.ActivityIndicator.stopAnimating()
+                    self.present(APSupport.newAlert(title: "Error",message: "Something went wrong, check your internet connection"), animated: true)                        }
+                //END
         }
-        //END
+        }
         
-    }
-    
-    func gogo(user: Profile) {
-        
-        performSegue(withIdentifier: "toMainMenu", sender: self)
-        
-    }
-    
-    func test() {
-        let db = Firestore.firestore()
-        var data: [String:String] = [:]
-        for i in 1...10 {
-            print(i)
+        func gogo(user: Profile) {
             
+            performSegue(withIdentifier: "toMainMenu", sender: self)
             
-            data = [
-                "message" : ("Hello World" + String(i)),
-                "username" : ("TP04521" + String(i)),
-                "timestamp" : ((String(125123 + i)))]
-                    
-                    db.collection("OnlineChat").document("General").collection("messages").document(String(i)).setData(data) { err in
-                    if let err = err {
-                    print("Error writing document: \(err)")
-                    } else {
-                    print("Document successfully written!")
+        }
+        
+        func getChatObject() {
+            let db = Firestore.firestore()
+            db.collection("OnlineChat").document("General").collection("messages").addSnapshotListener {
+                (querySnapshot, err) in
+                
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        //print("\(document.documentID) => \(document.data())")
+                        self.ChatObject.append(document.data() as NSDictionary)
                     }
-            }
-            
-        }
-    }
-    
-    
-    func test2() {
-        let db = Firestore.firestore()
-        db.collection("OnlineChat").document("General").collection("messages").addSnapshotListener {
-            (querySnapshot, err) in
-            
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                    self.ChatObject.append(document.data() as NSDictionary)
+                    //print(self.ChatObject)
+                    //print(JSON(self.ChatObject))
+                    
+                    
                 }
-                print(self.ChatObject)
-                //print(JSON(self.ChatObject))
-                
-                
             }
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "toMainMenu" {
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             
-            print("#ToMainMenu")
-            if let NavController = segue.destination as? UINavigationController {
-                //                let MainMenu = NavController.viewControllers.first as? MainMenuViewController {
+            if segue.identifier == "toMainMenu" {
                 
-                let TabController = NavController.viewControllers.first as! UITabBarController
-                let MainMenu = TabController.viewControllers![0] as! MainMenuViewController
-                let FAQCategory = TabController.viewControllers![1] as! FAQCategory
-                let ChatCategory = TabController.viewControllers![2] as! ChatCategory
-                
-                MainMenu.user = user
-                print("Student Course: \(self.StudentCourse)")
-                MainMenu.StudentCourse = self.StudentCourse
-                MainMenu.buttonChatEnabled = true
-                MainMenu.Firebasejson = self.Firebasejson
-                MainMenu.FAQjson = self.FAQjson
-                MainMenu.Chatjson = self.Chatjson
-                MainMenu.FAQCategoryArray = self.FAQCategoryArray
-                
-                FAQCategory.FAQjson = self.FAQjson
-                FAQCategory.FAQCategoryArray = self.FAQCategoryArray
-                FAQCategory.user = user
-                
-                ChatCategory.ChatCategoryList = self.ChatCategoryList
-                ChatCategory.tempvar = "abc"
-                ChatCategory.user = self.user
-                print("End of #ViewController")
+                print("#ToMainMenu")
+                if let NavController = segue.destination as? UINavigationController {
+                    //                let MainMenu = NavController.viewControllers.first as? MainMenuViewController {
+                    
+                    let TabController = NavController.viewControllers.first as! UITabBarController
+                    let MainMenu = TabController.viewControllers![0] as! MainMenuViewController
+                    let FAQCategory = TabController.viewControllers![1] as! FAQCategory
+                    let ChatCategory = TabController.viewControllers![2] as! ChatCategory
+                    let FavouriteFAQ = TabController.viewControllers![3] as! FavouriteFAQ
+                    
+                    MainMenu.user = user
+                    //print("Student Course: \(self.StudentCourse)")
+                    MainMenu.StudentCourse = self.StudentCourse
+                    MainMenu.Firebasejson = self.Firebasejson
+                    MainMenu.FAQjson = self.FAQjson
+                    MainMenu.Chatjson = self.Chatjson
+                    MainMenu.FAQCategoryArray = self.FAQCategoryArray
+                    
+                    FAQCategory.FAQjson = self.FAQjson
+                    FAQCategory.FAQCategoryArray = self.FAQCategoryArray
+                    FAQCategory.user = user
+                    
+                    ChatCategory.ChatCategoryList = self.ChatCategoryList
+                    //ChatCategory.tempvar = "abc"
+                    ChatCategory.user = self.user
+                    
+                    FavouriteFAQ.user = self.user
+                    FavouriteFAQ.FAQjson = self.FAQjson
+                    print("End of #ViewController")
+                }
             }
-        }
-        if segue.identifier == "toMainMenuNoLogin" {
-            print("#ToMainMenuNoLogin")
+            if segue.identifier == "toMainMenuNoLogin" {
+                print("#ToMainMenuNoLogin")
+                if let NavController = segue.destination as? UINavigationController {
+                    //                let MainMenu = NavController.viewControllers.first as? MainMenuViewController {
+                    
+                    let TabController = NavController.viewControllers.first as! UITabBarController
+                    let MainMenu = TabController.viewControllers![0] as! MainMenuViewController
+                    let FAQCategory = TabController.viewControllers![1] as! FAQCategory
+                    let ChatCategory = TabController.viewControllers![2] as! ChatCategory
+                    
+                    //MainMenu.user = Profile()
+                    //print("Student Course: \(self.StudentCourse)")
+                    //MainMenu.StudentCourse = self.StudentCourse
+                    MainMenu.Firebasejson = self.Firebasejson
+                    MainMenu.FAQjson = self.FAQjson
+                    MainMenu.Chatjson = self.Chatjson
+                    MainMenu.FAQCategoryArray = self.FAQCategoryArray
+                    
+                    FAQCategory.FAQjson = self.FAQjson
+                    FAQCategory.FAQCategoryArray = self.FAQCategoryArray
+                    //FAQCategory.user = user
+                    
+                    ChatCategory.ChatCategoryList = self.ChatCategoryList
+                    //ChatCategory.tempvar = "abc"
+                    //ChatCategory.user = self.user
+                    print("End of #ViewController")
+                }
+                
+            }
             
-            //            if let NavController = segue.destination as? UINavigationController,
-            //                let MainMenu = NavController.viewControllers.first as? MainMenuViewController {
-            //                MainMenu.buttonChatEnabled = false
-            //                MainMenu.user = Profile()
-            //
-            //                var ref: DatabaseReference!
-            //                ref = Database.database().reference()
-            //
-            //                ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            //                    // Get user value
-            //                    let value = snapshot.value as? NSDictionary
-            //                    self.Firebasejson = value!
-            //                    print(JSON(self.Firebasejson))
-            //                    self.FAQjson = self.Firebasejson["FAQ"] as! NSDictionary
-            //                    self.Chatjson = self.Firebasejson["Chat"] as! NSDictionary
-            //                    print("faq array count: \(self.FAQjson.count)")
-            //                    print("chat array count: \(self.Chatjson.count)")
-            //                    MainMenu.Firebasejson = self.Firebasejson
-            //                    MainMenu.FAQjson = self.FAQjson
-            //                    MainMenu.Chatjson = self.Chatjson
-            //                    let jsonFAQjson = JSON(self.FAQjson)
-            //                    for i in jsonFAQjson {
-            //                        print("#\(i.0)#")
-            //                        self.FAQCategoryArray.append(i.0 as String)
-            //                    }
-            //                    MainMenu.FAQCategoryArray = self.FAQCategoryArray
-            //                    // ...
-            //                }) { (error) in
-            //                    print(error.localizedDescription)
-            //                }
-            //
-            //
-            //            }
             
         }
-        
-        
-    }
 }
+
