@@ -17,15 +17,9 @@ class FavouriteDetail: UIViewController {
     @IBAction func buttonFav_Click(_ sender: Any) {
         print("Button Bookmark Clicked")
         if articleBookmarked{
-            //print("Bookmark Status: false")
-            //articleBookmarked = false
             unfavFAQ()
-            //buttonBookmark.setImage(UIImage(named: "Bookmark"), for: .normal)
         } else {
-            //print("Bookmark Status: true")
-            //articleBookmarked = true
             favFAQ()
-            //buttonBookmark.setImage(UIImage(named: "Bookmarked"), for: .normal)
         }
         
     }
@@ -118,16 +112,6 @@ class FavouriteDetail: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

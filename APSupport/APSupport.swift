@@ -5,7 +5,6 @@
 //  Created by localadmin on 18/05/2019.
 //  Copyright © 2019 Fhan Jacson. All rights reserved.
 //
-
 import Foundation
 import UIKit
 import Alamofire
@@ -60,7 +59,7 @@ let headers: HTTPHeaders = [
 ]
 
 func newAlert(title: String, message: String) -> UIAlertController {
-let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-return alert
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    return alert
 }

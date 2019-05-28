@@ -26,7 +26,6 @@ class FAQItemList: UITableViewController {
         FAQItemList_Table.dataSource = self
         FAQItemList_Table.delegate = self
         FAQItemList_Table.register(UITableViewCell.self, forCellReuseIdentifier: "FAQItemListCell")
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -61,8 +60,6 @@ class FAQItemList: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        print("Selected: \(FAQItemListDict![indexPath.item]["title"])")
         selectedFAQItemListIndex = indexPath.item
         tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: "toFAQItemDetail", sender: self)
@@ -80,8 +77,6 @@ class FAQItemList: UITableViewController {
                 FAQItemDetail.selectedFAQCategoryItem = selectedFAQCategoryItem
             }
         }
-            
-        
     }
     
 

@@ -64,9 +64,7 @@ class FAQCategory: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FAQCategoryCell", for: indexPath)
         cell.textLabel?.text = FAQCategoryArray[indexPath.item]
-        
-        // Configure the cell...
-        
+        // Configure the cell..        
         return cell
     }
     

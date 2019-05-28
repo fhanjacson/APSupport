@@ -33,25 +33,6 @@ class ChatCategory: UITableViewController {
         ChatCategory_Table.reloadData()
         print("ChatCategoryList: \(self.ChatCategoryList)")
     }
-//        db.collection("OnlineChat").document("General").collection("Messages").document("1")
-//            .addSnapshotListener { documentSnapshot, error in
-//                guard let document = documentSnapshot else {
-//                    print("Error fetching document: \(error!)")
-//                    return
-//                }
-//                guard let data = document.data() else {
-//                    print("Document data was empty.")
-//                    return
-//                }
-//                print("Current data: \(data)")
-//        }
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-  
     
     func getChatCategory() {
         let db = Firestore.firestore()

@@ -209,10 +209,8 @@ class ChatDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let message = ChatObject[indexPath.item]["message"] as! String!
         let username = ChatObject[indexPath.item]["username"] as! String!
         cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.text = message! + "\n\n[" + username! + " " + timestampstring + "]"
-        
+        cell.textLabel?.text = message! + "\n\n[" + username! + " " + timestampstring + "]"        
         // Configure the cell...
-        //cell.textLabel?.text = self.items[indexPath.item]
         return cell
     }
     

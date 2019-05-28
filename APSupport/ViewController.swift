@@ -144,11 +144,6 @@ class ViewController: UIViewController {
                                                                         (response) in
                                                                         //if (response.error == nil) {
                                                                             //print(response.error)
-                                                                        print(response.request)
-                                                                        print(response.response)
-                                                                        print(response.error)
-                                                                        print(response.data)
-                                                                        
                                                                         
                                                                             if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
                                                                                 print("PROFILE TICKET: \(utf8Text)") // original server data as UTF8 string
